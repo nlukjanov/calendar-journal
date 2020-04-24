@@ -1,0 +1,11 @@
+{
+  "name": "calendar-journal",
+  "version": "1.0.0",
+  "description": "calendar journal web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "nikita lukjanov",
+  "license": "ISC"
+}
