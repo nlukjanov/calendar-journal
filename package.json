@@ -4,7 +4,8 @@
   "description": "calendar journal web app",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start:back": "nodemon index.js",
+    "test": "jest --collect-coverage --watch --verbose"
   },
   "author": "nikita lukjanov",
   "license": "ISC",
@@ -13,7 +14,11 @@
     "eslint": "^6.8.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.10",
-    "nodemon": "^2.0.3",
     "prettier": "^2.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3",
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.4.0"
   }
 }
