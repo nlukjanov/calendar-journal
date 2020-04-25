@@ -5,21 +5,35 @@
   "main": "index.js",
   "scripts": {
     "start:back": "nodemon index.js",
-    "test": "jest --collect-coverage --watch --verbose"
+    "test": "jest --forceExit --watchAll --runInBand"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ],
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/coverage/**"
+    ]
   },
   "author": "nikita lukjanov",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "eslint": "^6.8.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.10",
-    "prettier": "^2.0.5"
+    "mongoose": "^5.9.10"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "prettier": "^2.0.5",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-node": "^11.1.0",
     "jest": "^25.4.0",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
   }
 }

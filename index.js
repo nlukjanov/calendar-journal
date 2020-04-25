@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const bodyParser = require('body-parser');
+const { port, dbURI } = require('./config/environment');
+const logger = require('./lib/logger');
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.use(bodyParser.json());
+app.use(logger);
 
-app.listen(PORT, () =>
-  console.log(`Example app listening at http://localhost:${PORT}`)
-);
+app.get('/', (req, res) => res.send({ message: 'Hello World!' }));
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () =>
+    console.log(`Express app listening at http://localhost:${port}`)
+  );
+}
+
+module.exports = app;
