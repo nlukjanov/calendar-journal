@@ -8,6 +8,7 @@
     "test": "jest --forceExit --watchAll --runInBand"
   },
   "jest": {
+    "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./setupTests.js"
     ],
