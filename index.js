@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { port, dbURI } = require('./config/environment');
 const logger = require('./lib/logger');
 const mongoose = require('mongoose');
+const router = require('./config/router');
 
 const mongooseConfig = {
   useNewUrlParser: true,
@@ -13,14 +14,13 @@ const mongooseConfig = {
 app.use(bodyParser.json());
 app.use(logger);
 
+app.use(router);
+
 app.get('/', (req, res) => res.send('Hello World'));
-app.post('/register', (req, res) => res.status(201).json('hello'));
-app.post('/login', (req, res) => res.status(202).json('hello'));
-app.post('/myjournal', (req, res) => res.status(200).json('hello'));
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(dbURI, mongooseConfig, (err) => {
-    if (err) return console.log('this is that shit going', err);
+    if (err) return console.log('app in index cannot connect to mongodb', err);
     console.log(`Mongo is connected to '${dbURI}'`);
   });
   app.listen(port, () =>

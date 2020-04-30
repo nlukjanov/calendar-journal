@@ -13,7 +13,7 @@ describe('Users router', () => {
     expect(res.statusCode).toEqual(202);
   });
   it('should have a my profile route', async () => {
-    const res = await request(app).post('/myjournal');
+    const res = await request(app).get('/myjournal');
     expect(res.statusCode).toEqual(200);
   });
 });
