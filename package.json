@@ -7,20 +7,6 @@
     "start:back": "nodemon index.js",
     "test": "jest --forceExit --watchAll --runInBand"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./setupTests.js"
-    ],
-    "verbose": true,
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/vendor/**",
-      "!**/coverage/**"
-    ]
-  },
   "author": "nikita lukjanov",
   "license": "ISC",
   "dependencies": {
@@ -29,12 +15,13 @@
     "mongoose": "^5.9.10"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
     "eslint": "^6.8.0",
-    "prettier": "^2.0.5",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-node": "^11.1.0",
     "jest": "^25.4.0",
     "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
     "supertest": "^4.0.2"
   }
 }
