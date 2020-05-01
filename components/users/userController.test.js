@@ -3,13 +3,20 @@ const mongoose = require('mongoose');
 const app = require('../../index');
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { secret } = require('../../config/environment');
 
 const validUser = {
   username: 'nik',
   email: 'email',
   password: 'pass',
   passwordConfirmation: 'pass'
+};
+const invalidUser = {
+  username: 'nik',
+  email: 'email',
+  password: 'pass',
+  passwordConfirmation: 'notpass'
 };
 
 describe('User controller', () => {
@@ -44,5 +51,25 @@ describe('User controller', () => {
     expect(userFromDb.username).toEqual(validUser.username);
     expect(userFromDb.email).toEqual(validUser.email);
   });
-  
+
+  it('should throw an error if user is incorrect', async () => {
+    const res = await request(app).post('/register').send(invalidUser);
+    expect(res.statusCode).toEqual(422);
+  });
+
+  it('should login the user', async () => {
+    const setToken = jwt.sign({ sub: validUser.username }, secret, {
+      expiresIn: '24h'
+    });
+    const setTokenPayload = jwt.verify(setToken, secret);
+    await request(app).post('/register').send(validUser);
+    const res = await request(app).post('/login').send(validUser);
+    const token = res.body.token;
+    expect(res.body).toEqual({
+      message: `Welcome back ${validUser.username}`,
+      token
+    });
+    const returnedTokenPayload = jwt.verify(token, secret);
+    expect(setTokenPayload).toEqual(returnedTokenPayload);
+  });
 });
