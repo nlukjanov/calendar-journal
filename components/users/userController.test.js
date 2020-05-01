@@ -39,7 +39,7 @@ describe('User controller', () => {
       message: `Thank you for registering ${validUser.username}`
     });
     const userFromDb = await User.findOne({ username: validUser.username });
-    expect(userFromDb).toEqual(expect.objectContaining(validUser));
+    expect(userFromDb).toMatchObject(validUser);
   });
   
 });
