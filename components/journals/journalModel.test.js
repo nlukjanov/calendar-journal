@@ -18,7 +18,8 @@ describe('Journal model', () => {
     const user = new User({
       username: 'userNoPass',
       email: 'userNoPass',
-      password: 'pass'
+      password: 'pass',
+      passwordConfirmation: 'pass'
     });
 
     const journalEntryNoTitle = new Journal({
