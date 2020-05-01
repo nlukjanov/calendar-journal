@@ -15,4 +15,14 @@ userSchema
     this._passwordConfirmation = passwordConfirmation;
   });
 
+userSchema.pre('validate', function checkPassword(next) {
+  if (
+    this.isModified('password') &&
+    this._passwordConfirmation !== this.password
+  ) {
+    this.invalidate('passwordConfirmation', 'Passwords do not match');
+  }
+  next();
+});
+
 module.exports = mongoose.model('User', userSchema);

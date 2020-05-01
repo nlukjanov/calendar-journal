@@ -7,7 +7,8 @@ const request = require('supertest');
 const validUser = {
   username: 'nik',
   email: 'email',
-  password: 'pass'
+  password: 'pass',
+  passwordConfirmation: 'pass'
 };
 
 describe('User controller', () => {
@@ -39,7 +40,9 @@ describe('User controller', () => {
       message: `Thank you for registering ${validUser.username}`
     });
     const userFromDb = await User.findOne({ username: validUser.username });
-    expect(userFromDb).toMatchObject(validUser);
+    expect(userFromDb.username).toEqual(validUser.username);
+    expect(userFromDb.email).toEqual(validUser.email);
+    expect(userFromDb.password).toEqual(validUser.password);
   });
   
 });
