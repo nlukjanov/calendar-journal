@@ -1,5 +1,13 @@
-function register(req, res) {
-  return res.status(201).json('register');
+const User = require('./userModel');
+
+function register(req, res, next) {
+  User.create(req.body)
+    .then((user) =>
+      res
+        .status(201)
+        .json({ message: `Thank you for registering ${user.username}` })
+    )
+    .catch(next);
 }
 
 function login(req, res) {
