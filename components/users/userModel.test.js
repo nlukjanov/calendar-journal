@@ -67,15 +67,9 @@ describe('User model', () => {
     expect(err.errors).toBeDefined();
   });
 
-  // it('should check if password and passwordConfirmation match', async () => {
-  //   const userWithWrongPassAndPassConf = {
-  //     username: 'nik',
-  //     email: 'email',
-  //     password: 'pass',
-  //     passwordConfirmation: 'notpass'
-  //   };
-  //   let err;
-  //   const user = await new User(userWithWrongPassAndPassConf).save();
-  //   expect(user.password).toEqual(user.passwordConfirmation);
-  // });
+  it('should encrypt passwords', async () => {
+    const user = await User.create(userData);
+    const userFromDb = await User.findOne({ username: user.username });
+    expect(userFromDb.password).not.toEqual(userData.password);
+  });
 });

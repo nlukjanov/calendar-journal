@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = require('../../index');
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest');
+const bcrypt = require('bcrypt');
 
 const validUser = {
   username: 'nik',
@@ -42,7 +43,6 @@ describe('User controller', () => {
     const userFromDb = await User.findOne({ username: validUser.username });
     expect(userFromDb.username).toEqual(validUser.username);
     expect(userFromDb.email).toEqual(validUser.email);
-    expect(userFromDb.password).toEqual(validUser.password);
   });
   
 });
