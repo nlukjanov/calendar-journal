@@ -52,12 +52,12 @@ describe('User controller', () => {
     expect(userFromDb.email).toEqual(validUser.email);
   });
 
-  it('should throw an error if user is incorrect', async () => {
+  it('should throw an error if user data is incorrect', async () => {
     const res = await request(app).post('/register').send(invalidUser);
     expect(res.statusCode).toEqual(422);
   });
 
-  it('should login the user', async () => {
+  it('should login the user and return to json token', async () => {
     const setToken = jwt.sign({ sub: validUser.username }, secret, {
       expiresIn: '24h'
     });
@@ -70,6 +70,6 @@ describe('User controller', () => {
       token
     });
     const returnedTokenPayload = jwt.verify(token, secret);
-    expect(setTokenPayload).toEqual(returnedTokenPayload);
+    expect(setTokenPayload.sub).toEqual(returnedTokenPayload.sub);
   });
 });

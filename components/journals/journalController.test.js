@@ -45,9 +45,45 @@ describe('Journal controller', () => {
     const res = await request(app).post('/journal').send(validJournalEntry);
     expect(res.statusCode).toEqual(201);
     expect(res.body).toEqual({
-      message: `Thank you for registering ${validJournalEntry.title}`
+      message: `Journal entry created ${validJournalEntry.title}`
     });
-    const journalFromDb = await Journal.findOne({ title: validJournalEntry.title });
+    const journalFromDb = await Journal.findOne({
+      title: validJournalEntry.title
+    });
     expect(journalFromDb.title).toEqual(validJournalEntry.title);
+  });
+
+  it('should throw an error if something is wrong with entry', async () => {
+    const authorId = mongoose.Types.ObjectId();
+    const validJournalEntry = {
+      author: authorId
+    };
+    const res = await request(app).post('/journal').send(validJournalEntry);
+    expect(res.statusCode).toEqual(422);
+  });
+
+  it('should show all journal entries', async () => {
+    const validAuthor = await User.create(validUser);
+    const validEntries = [
+      {
+        author: validAuthor._id,
+        title: 'title1'
+      },
+
+      {
+        author: validAuthor._id,
+        title: 'title2'
+      }
+    ];
+    await request(app).post('/journal').send(validEntries[0]);
+    await request(app).post('/journal').send(validEntries[1]);
+    const res = await request(app).get('/journal');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual(expect.any(Array));
+    expect(res.body.length).toEqual(2);
+    res.body.forEach((entry, index) => {
+      expect(entry.author).toEqual(validEntries[index].author.toString());
+      expect(entry.title).toBe(validEntries[index].title);
+    });
   });
 });
