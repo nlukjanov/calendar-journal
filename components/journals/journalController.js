@@ -17,7 +17,7 @@ function createJournalEntry(req, res) {
     .then((journalEntry) => {
       return res
         .status(201)
-        .json({ message: `Journal entry created ${journalEntry.title}` });
+        .json({ message: `Journal entry ${journalEntry.title} created` });
     })
     .catch((err) => {
       return res

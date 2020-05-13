@@ -75,8 +75,8 @@ describe('Journal controller', () => {
         title: 'title2'
       }
     ];
-    await request(app).post('/journal').send(validEntries[0]);
-    await request(app).post('/journal').send(validEntries[1]);
+    await Journal.create(validEntries[0]);
+    await Journal.create(validEntries[1]);
     const res = await request(app).get('/journal');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual(expect.any(Array));

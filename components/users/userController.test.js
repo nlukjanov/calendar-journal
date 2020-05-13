@@ -1,4 +1,5 @@
 const User = require('./userModel');
+const Journal = require('../journals/journalModel');
 const mongoose = require('mongoose');
 const app = require('../../index');
 // eslint-disable-next-line node/no-unpublished-require
@@ -42,8 +43,10 @@ describe('User controller', () => {
   });
 
   it('should create a user', async () => {
-    const res = await request(app).post('/register').send(validUser);
-    expect(res.statusCode).toEqual(201);
+    const res = await request(app)
+      .post('/register')
+      .send(validUser)
+      .expect(201);
     expect(res.body).toEqual({
       message: `Thank you for registering ${validUser.username}`
     });
@@ -58,10 +61,10 @@ describe('User controller', () => {
   });
 
   it('should login the user and return to json token', async () => {
-    const setToken = jwt.sign({ sub: validUser.username }, secret, {
+    const createdToken = jwt.sign({ sub: validUser.username }, secret, {
       expiresIn: '24h'
     });
-    const setTokenPayload = jwt.verify(setToken, secret);
+    const createdTokenPayload = jwt.verify(createdToken, secret);
     await request(app).post('/register').send(validUser);
     const res = await request(app).post('/login').send(validUser);
     const token = res.body.token;
@@ -70,6 +73,36 @@ describe('User controller', () => {
       token
     });
     const returnedTokenPayload = jwt.verify(token, secret);
-    expect(setTokenPayload.sub).toEqual(returnedTokenPayload.sub);
+    expect(createdTokenPayload.sub).toEqual(returnedTokenPayload.sub);
+  });
+
+  it('should return user with all details', async () => {
+    const validAuthor = await User.create(validUser);
+    const validEntries = [
+      {
+        author: validAuthor._id,
+        title: 'title1'
+      },
+
+      {
+        author: validAuthor._id,
+        title: 'title2'
+      }
+    ];
+    await Journal.create(validEntries[0]);
+    await Journal.create(validEntries[1]);
+    // create token
+    const createdToken = jwt.sign({ sub: validUser.username }, secret, {
+      expiresIn: '24h'
+    });
+    const res = await request(app)
+      .get('/myjournal')
+      .set('Authorization', 'Bearer ' + createdToken)
+      .expect(200);
+    // get request to get user
+    const user = await User.findOne({ username: validAuthor.username });
+    console.log(user);
+    console.log(res.body);
+    expect(res.body.username).toEqual(validUser.username);
   });
 });

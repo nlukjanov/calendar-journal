@@ -8,7 +8,8 @@ const router = require('./config/router');
 
 const mongooseConfig = {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 };
 
 app.use(bodyParser.json());

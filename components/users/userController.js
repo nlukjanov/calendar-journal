@@ -33,7 +33,16 @@ function login(req, res) {
 }
 
 function myjournal(req, res) {
-  return res.status(200).json('myjournal');
+  User.findById(req.currentUser._id).populate('journalEntries')
+    .then((user) => {
+      if (!user) throw new Error('Unauthorized');
+      console.log('got user but not populated', user);
+      return res.status(200).json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(401).json({ message: 'Unauthorized' });
+    });
 }
 
 module.exports = { register, login, myjournal };

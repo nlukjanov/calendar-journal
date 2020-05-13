@@ -10,6 +10,12 @@ const userSchema = new mongoose.Schema(
   { strict: 'throw' }
 );
 
+userSchema.virtual('journalEntries', {
+  ref: 'Journal',
+  localField: '_id',
+  foreignField: 'author'
+});
+
 userSchema
   .virtual('passwordConfirmation')
   .set(function setPasswordConfirmation(passwordConfirmation) {
@@ -36,5 +42,7 @@ userSchema.pre('save', function hashPassword(next) {
 userSchema.methods.validatePassword = function validatePassword(password) {
   return bcrypt.compareSync(password, this.password);
 };
+
+userSchema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('User', userSchema);
