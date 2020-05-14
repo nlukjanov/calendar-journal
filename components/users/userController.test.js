@@ -21,7 +21,7 @@ const invalidUser = {
 };
 
 describe('User controller', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await mongoose.connect(
       process.env.MONGO_URL,
       { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
@@ -33,13 +33,10 @@ describe('User controller', () => {
     );
   });
 
-  afterAll(async () => {
+  
+  afterEach(async () => {
     await mongoose.connection.db.dropDatabase();
     await mongoose.connection.close();
-  });
-
-  afterEach(async () => {
-    await User.deleteMany();
   });
 
   it('should create a user', async () => {
@@ -60,12 +57,12 @@ describe('User controller', () => {
     expect(res.statusCode).toEqual(422);
   });
 
-  it('should login the user and return to json token', async () => {
-    const createdToken = jwt.sign({ sub: validUser.username }, secret, {
+  it('should login the user and return json token', async () => {
+    const createdUser = await User.create(validUser);
+    const createdToken = jwt.sign({ sub: createdUser._id }, secret, {
       expiresIn: '24h'
     });
     const createdTokenPayload = jwt.verify(createdToken, secret);
-    await request(app).post('/register').send(validUser);
     const res = await request(app).post('/login').send(validUser);
     const token = res.body.token;
     expect(res.body).toEqual({
@@ -76,7 +73,7 @@ describe('User controller', () => {
     expect(createdTokenPayload.sub).toEqual(returnedTokenPayload.sub);
   });
 
-  it('should return user with all details', async () => {
+  it('should return user data with populated journal entries', async () => {
     const validAuthor = await User.create(validUser);
     const validEntries = [
       {
@@ -99,7 +96,9 @@ describe('User controller', () => {
       .get('/myjournal')
       .set('Authorization', 'Bearer ' + createdToken)
       .expect(200);
-    await User.findOne({ username: validAuthor.username });
+    await User.findById(validAuthor._id);
     expect(res.body.username).toEqual(validUser.username);
+    expect(res.body.journalEntries[0].title).toEqual(validEntries[0].title);
+    expect(res.body.journalEntries[1].title).toEqual(validEntries[1].title);
   });
 });
