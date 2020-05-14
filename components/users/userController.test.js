@@ -1,7 +1,7 @@
 const User = require('./userModel');
 const Journal = require('../journals/journalModel');
 const mongoose = require('mongoose');
-const app = require('../../index');
+const app = require('../../app');
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest');
 const jwt = require('jsonwebtoken');

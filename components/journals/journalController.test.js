@@ -2,7 +2,7 @@ const User = require('../users/userModel');
 const mongoose = require('mongoose');
 const Journal = require('./journalModel');
 
-const app = require('../../index');
+const app = require('../../app');
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest');
 

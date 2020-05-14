@@ -4,7 +4,7 @@
   "description": "calendar journal web app",
   "main": "index.js",
   "scripts": {
-    "start:back": "nodemon index.js",
+    "start:back": "nodemon server.js",
     "test": "jest --forceExit --watchAll --runInBand"
   },
   "author": "nikita lukjanov",

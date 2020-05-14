@@ -1,23 +1,13 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+
+const app = require('./app');
 const { port, dbURI } = require('./config/environment');
-const logger = require('./lib/logger');
 const mongoose = require('mongoose');
-const router = require('./config/router');
 
 const mongooseConfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
 };
-
-app.use(bodyParser.json());
-app.use(logger);
-
-app.use(router);
-
-app.get('/', (req, res) => res.send('Hello World'));
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(dbURI, mongooseConfig, (err) => {
@@ -28,5 +18,3 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`Express app listening at http://localhost:${port}`)
   );
 }
-
-module.exports = app;
