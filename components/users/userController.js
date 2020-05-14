@@ -19,7 +19,7 @@ function register(req, res) {
 function login(req, res) {
   User.findOne({ username: req.body.username })
     .then((user) => {
-      const token = jwt.sign({ sub: user.username }, secret, {
+      const token = jwt.sign({ sub: user._id }, secret, {
         expiresIn: '24h'
       });
       return res

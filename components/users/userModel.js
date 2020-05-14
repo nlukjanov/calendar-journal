@@ -41,8 +41,15 @@ userSchema.pre('save', function hashPassword(next) {
 
 userSchema.methods.validatePassword = function validatePassword(password) {
   return bcrypt.compareSync(password, this.password);
-};
+};  
 
-userSchema.set('toJSON', { virtuals: true });
+// toJSON creates id attribute === _id but represented as string, where _id is mongoose Object
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform(doc, json) {
+    delete json.password;
+    return json;
+  }
+});
 
 module.exports = mongoose.model('User', userSchema);
