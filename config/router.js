@@ -9,4 +9,6 @@ router.route('/myjournal').get(secureRoute, users.myjournal);
 
 router.route('/journal').get(journal.index).post(journal.createJournalEntry);
 
+router.route('/journal/:id').put(journal.editJournalEntry);
+
 module.exports = router;

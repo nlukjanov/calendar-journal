@@ -26,4 +26,21 @@ function createJournalEntry(req, res) {
     });
 }
 
-module.exports = { index, createJournalEntry };
+function editJournalEntry(req, res) {
+  Journal.findById(req.params.id)
+    .then((journalEntry) => {
+      if (!journalEntry) throw new Error('Not found');
+      // here check if user is logged in
+      // check if user is owner
+      Object.assign(journalEntry, req.body);
+      return journalEntry.save();
+    })
+    .then((journalEntry) => res.status(202).json(journalEntry))
+    .catch((err) => {
+      return res
+        .status(422)
+        .json({ message: 'somethings is wrong', error: err.message });
+    });
+}
+
+module.exports = { index, createJournalEntry, editJournalEntry };

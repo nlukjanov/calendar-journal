@@ -14,7 +14,7 @@ const validUser = {
 };
 
 describe('Journal controller', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await mongoose.connect(
       process.env.MONGO_URL,
       { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
@@ -26,14 +26,9 @@ describe('Journal controller', () => {
     );
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await mongoose.connection.db.dropDatabase();
     await mongoose.connection.close();
-  });
-
-  afterEach(async () => {
-    await Journal.deleteMany();
-    await User.deleteMany();
   });
 
   it('should create a journal entry', async () => {
@@ -55,10 +50,10 @@ describe('Journal controller', () => {
 
   it('should throw an error if something is wrong with entry', async () => {
     const authorId = mongoose.Types.ObjectId();
-    const validJournalEntry = {
+    const invalidJournalEntry = {
       author: authorId
     };
-    const res = await request(app).post('/journal').send(validJournalEntry);
+    const res = await request(app).post('/journal').send(invalidJournalEntry);
     expect(res.statusCode).toEqual(422);
   });
 
@@ -85,5 +80,48 @@ describe('Journal controller', () => {
       expect(entry.author).toEqual(validEntries[index].author.toString());
       expect(entry.title).toBe(validEntries[index].title);
     });
+  });
+
+  it('should edit journal entry', async () => {
+    const validAuthor = await User.create(validUser);
+    const validEntry = {
+      author: validAuthor._id,
+      title: 'title1'
+    };
+    const entryEdit = {
+      author: validAuthor._id,
+      title: 'title1',
+      body: 'some body text'
+    };
+    await Journal.create(validEntry);
+    const entryToEdit = await Journal.findOne({ title: 'title1' });
+    const res = await request(app)
+      .put(`/journal/${entryToEdit._id}`)
+      .send(entryEdit)
+      .expect(202);
+    expect(res.body.body).toEqual(entryEdit.body);
+    expect(res.body.author).toEqual(entryEdit.author.toString());
+    expect(res.body.title).toEqual(entryEdit.title);
+  });
+
+  it('should throw and error if wrong entry is submitted', async () => {
+    const validAuthor = await User.create(validUser);
+    const validEntry = {
+      author: validAuthor._id,
+      title: 'title1'
+    };
+    const entryEdit = {
+      author: validAuthor._id,
+      body: 'some body stuff',
+      wrongStuff: 'some wrong stuff'
+    };
+    await Journal.create(validEntry);
+    const entryToEdit = await Journal.findOne({ title: 'title1' });
+    const res = await request(app)
+      .put(`/journal/${entryToEdit._id}`)
+      .send(entryEdit)
+      .expect(202);
+    console.log(res.body)
+    expect(res.statusCode).toEqual(422);
   });
 });
