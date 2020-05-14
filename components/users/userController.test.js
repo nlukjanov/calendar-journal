@@ -99,10 +99,7 @@ describe('User controller', () => {
       .get('/myjournal')
       .set('Authorization', 'Bearer ' + createdToken)
       .expect(200);
-    // get request to get user
-    const user = await User.findOne({ username: validAuthor.username });
-    console.log(user);
-    console.log(res.body);
+    await User.findOne({ username: validAuthor.username });
     expect(res.body.username).toEqual(validUser.username);
   });
 });

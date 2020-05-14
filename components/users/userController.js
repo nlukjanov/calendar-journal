@@ -36,7 +36,6 @@ function myjournal(req, res) {
   User.findById(req.currentUser._id).populate('journalEntries')
     .then((user) => {
       if (!user) throw new Error('Unauthorized');
-      console.log('got user but not populated', user);
       return res.status(200).json(user);
     })
     .catch((err) => {

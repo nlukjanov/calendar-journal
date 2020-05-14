@@ -45,7 +45,7 @@ describe('Journal controller', () => {
     const res = await request(app).post('/journal').send(validJournalEntry);
     expect(res.statusCode).toEqual(201);
     expect(res.body).toEqual({
-      message: `Journal entry created ${validJournalEntry.title}`
+      message: `Journal entry ${validJournalEntry.title} created`
     });
     const journalFromDb = await Journal.findOne({
       title: validJournalEntry.title
