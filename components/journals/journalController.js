@@ -29,17 +29,17 @@ function createJournalEntry(req, res) {
 function editJournalEntry(req, res) {
   Journal.findById(req.params.id)
     .then((journalEntry) => {
-      if (!journalEntry) throw new Error('Not found');
+      if (!journalEntry)
+        return res.status(404).json({ message: 'entry not found' });
       // here check if user is logged in
       // check if user is owner
-      Object.assign(journalEntry, req.body);
-      return journalEntry.save();
+      journalEntry.set(req.body);
+      journalEntry.save();
+      return res.status(202).json(journalEntry);
     })
-    .then((journalEntry) => res.status(202).json(journalEntry))
     .catch((err) => {
-      return res
-        .status(422)
-        .json({ message: 'somethings is wrong', error: err.message });
+      console.log(err);
+      res.status(422).json({ message: 'somethings is wrong', error: err.message });
     });
 }
 

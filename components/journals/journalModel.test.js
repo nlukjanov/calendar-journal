@@ -13,6 +13,17 @@ describe('Journal model', () => {
     );
   });
 
+  it('should throw error if wrong data type is submitted', async () => {
+    expect.assertions(1);
+    const journalEntryNoAuthor = new Journal({
+      title: { a: 'b', c: 'd' }
+    });
+
+    await expect(() => journalEntryNoAuthor.validate()).rejects.toThrow(
+      'Journal validation failed: title: Cast to String failed for value "{ a: \'b\', c: \'d\' }" at path "title", author: Path `author` is required.'
+    );
+  });
+
   it('should throw error if title is not present', async () => {
     expect.assertions(1);
     const user = new User({

@@ -14,7 +14,7 @@ const validUser = {
 };
 
 describe('Journal controller', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await mongoose.connect(
       process.env.MONGO_URL,
       { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
@@ -27,6 +27,11 @@ describe('Journal controller', () => {
   });
 
   afterEach(async () => {
+    await Journal.deleteMany();
+    await User.deleteMany();
+  });
+
+  afterAll(async () => {
     await mongoose.connection.db.dropDatabase();
     await mongoose.connection.close();
   });
@@ -48,7 +53,7 @@ describe('Journal controller', () => {
     expect(journalFromDb.title).toEqual(validJournalEntry.title);
   });
 
-  it('should throw an error if something is wrong with entry', async () => {
+  it('should throw an error if entry is invalid', async () => {
     const authorId = mongoose.Types.ObjectId();
     const invalidJournalEntry = {
       author: authorId
@@ -104,24 +109,16 @@ describe('Journal controller', () => {
     expect(res.body.title).toEqual(entryEdit.title);
   });
 
-  it('should throw and error if wrong entry is submitted', async () => {
+  it('should throw and error if no entry found', async () => {
     const validAuthor = await User.create(validUser);
-    const validEntry = {
-      author: validAuthor._id,
-      title: 'title1'
-    };
     const entryEdit = {
       author: validAuthor._id,
-      body: 'some body stuff',
-      wrongStuff: 'some wrong stuff'
+      body: 'some body stuff'
     };
-    await Journal.create(validEntry);
-    const entryToEdit = await Journal.findOne({ title: 'title1' });
+    const invalidEntryId = mongoose.Types.ObjectId();
     const res = await request(app)
-      .put(`/journal/${entryToEdit._id}`)
-      .send(entryEdit)
-      .expect(202);
-    console.log(res.body)
-    expect(res.statusCode).toEqual(422);
+      .put(`/journal/${invalidEntryId}`)
+      .send(entryEdit);
+    expect(res.statusCode).toEqual(404);
   });
 });
