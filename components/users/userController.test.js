@@ -20,6 +20,13 @@ const invalidUser = {
   passwordConfirmation: 'notpass'
 };
 
+const wrongPassUser = {
+  username: 'nik',
+  email: 'email',
+  password: 'notpass',
+  passwordConfirmation: 'notpass'
+};
+
 describe('User controller', () => {
   beforeEach(async () => {
     await mongoose.connect(
@@ -75,6 +82,13 @@ describe('User controller', () => {
     });
     const returnedTokenPayload = jwt.verify(token, secret);
     expect(createdTokenPayload.sub).toEqual(returnedTokenPayload.sub);
+  });
+
+  it('should return 404 if user is not found', async () => {
+    await User.create(validUser);
+    const res = await request(app).post('/login').send(wrongPassUser);
+    expect(res.statusCode).toEqual(401);
+    expect(res.body).toEqual({ message: 'Unauthorized' });
   });
 
   it('should return user data with populated journal entries', async () => {

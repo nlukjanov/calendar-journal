@@ -19,6 +19,9 @@ function register(req, res) {
 function login(req, res) {
   User.findOne({ username: req.body.username })
     .then((user) => {
+      if (!user || !user.validatePassword(req.body.password)) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
       const token = jwt.sign({ sub: user._id }, secret, {
         expiresIn: '24h'
       });
@@ -33,7 +36,8 @@ function login(req, res) {
 }
 
 function myjournal(req, res) {
-  User.findById(req.currentUser._id).populate('journalEntries')
+  User.findById(req.currentUser._id)
+    .populate('journalEntries')
     .then((user) => {
       if (!user) throw new Error('Unauthorized');
       return res.status(200).json(user);
