@@ -121,4 +121,24 @@ describe('Journal controller', () => {
       .send(entryEdit);
     expect(res.statusCode).toEqual(404);
   });
+
+  it('should delete journal entry', async () => {
+    const validAuthor = await User.create(validUser);
+    const validEntry = {
+      author: validAuthor._id,
+      title: 'title1'
+    };
+    await Journal.create(validEntry);
+    const entryToDelete = await Journal.findOne({ title: 'title1' });
+    const res = await request(app).delete(`/journal/${entryToDelete._id}`);
+    expect(res.status).toEqual(204);
+    const deletedEntry = await Journal.findById(entryToDelete._id);
+    expect(deletedEntry).toEqual(null);
+  });
+
+  it('should throw error if journal entry not found', async () => {
+    const invalidEntryId = mongoose.Types.ObjectId();
+    const res = await request(app).delete(`/journal/${invalidEntryId._id}`);
+    expect(res.status).toEqual(404);
+  });
 });

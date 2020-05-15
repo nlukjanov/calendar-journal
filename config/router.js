@@ -7,8 +7,8 @@ router.route('/register').post(users.register);
 router.route('/login').post(users.login);
 router.route('/myjournal').get(secureRoute, users.myjournal);
 
-router.route('/journal').get(journal.index).post(journal.createJournalEntry);
+router.route('/journal').get(journal.index).post(journal.create);
 
-router.route('/journal/:id').put(journal.editJournalEntry);
+router.route('/journal/:id').put(journal.edit).delete(journal.destroy);
 
 module.exports = router;
