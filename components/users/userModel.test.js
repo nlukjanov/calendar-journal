@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 const User = require('./userModel');
 const mongoose = require('mongoose');
 const userData = {

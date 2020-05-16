@@ -1,5 +1,5 @@
 const User = require('../users/userModel');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
 const Journal = require('./journalModel');
 
 const app = require('../../app');

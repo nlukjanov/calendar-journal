@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 const User = require('../users/userModel');
 const Journal = require('./journalModel');
 
@@ -20,7 +23,7 @@ describe('Journal model', () => {
     });
 
     await expect(() => journalEntryNoAuthor.validate()).rejects.toThrow(
-      'Journal validation failed: title: Cast to String failed for value "{ a: \'b\', c: \'d\' }" at path "title", author: Path `author` is required.'
+      'Journal validation failed: title: Cast to string failed for value "{ a: \'b\', c: \'d\' }" at path "title", author: Path `author` is required.'
     );
   });
 
