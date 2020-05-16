@@ -6,7 +6,7 @@
     "node": true,
     "jest": true
   },
-  "plugins": ["jest", "node"],
+  "plugins": ["jest", "node", "babel"],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
@@ -36,6 +36,9 @@
     "prefer-const": "error",
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/prop-types": [0]
+    "react/prop-types": [0],
+    "node/no-unsupported-features/es-syntax": [
+      "off"
+    ]
   }
 }

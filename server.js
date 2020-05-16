@@ -1,4 +1,3 @@
-
 const app = require('./app');
 const { port, dbURI } = require('./config/environment');
 const mongoose = require('mongoose');

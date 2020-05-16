@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
