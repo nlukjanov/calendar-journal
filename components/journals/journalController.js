@@ -2,7 +2,7 @@ const Journal = require('./journalModel');
 
 async function index(req, res) {
   try {
-    const entries = await Journal.find();
+    const entries = await Journal.find({ author: req.currentUser._id });
     return res.status(200).json(entries);
   } catch (err) {
     return res

@@ -45,10 +45,18 @@ describe('Journal controller', () => {
         author: createdUsers[0]._id,
         title: 'title1'
       },
-
       {
         author: createdUsers[0]._id,
         title: 'title2'
+      },
+
+      {
+        author: createdUsers[1]._id,
+        title: 'title1 by user2'
+      },
+      {
+        author: createdUsers[1]._id,
+        title: 'title2 by user2'
       }
     ]);
   });
@@ -130,7 +138,7 @@ describe('Journal controller', () => {
       expect(res.statusCode).toEqual(422);
     });
 
-    it('should show all journal entries', async () => {
+    it('should show all journal entries for particular user', async () => {
       const res = await request(app)
         .get('/journal')
         .set('Authorization', 'Bearer ' + createdToken);
