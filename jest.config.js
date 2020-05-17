@@ -8,7 +8,8 @@ module.exports = {
     '!**/node_modules/**',
     '!**/vendor/**',
     '!**/coverage/**',
-    '!<rootDir>/*config.js'
+    '!<rootDir>/*config.js',
+    '!<rootDir>/server.js'
   ],
   preset: '@shelf/jest-mongodb',
   watchPlugins: [
