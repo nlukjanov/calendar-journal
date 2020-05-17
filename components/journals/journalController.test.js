@@ -74,6 +74,25 @@ describe('Journal controller', () => {
     expect(deleteRes.statusCode).toEqual(401);
   });
 
+  it('should return 401 if wrong user sends token', async () => {
+    createdToken = jwt.sign({ sub: createdUsers[1]._id }, secret, {
+      expiresIn: '24h'
+    });
+
+    const postRes = await request(app).post('/journal');
+    expect(postRes.statusCode).toEqual(401);
+    const getRes = await request(app).get('/journal');
+    expect(getRes.statusCode).toEqual(401);
+    const editRes = await request(app)
+      .put(`/journal/${createdEntries[0]._id}`)
+      .set('Authorization', 'Bearer ' + createdToken);
+    expect(editRes.statusCode).toEqual(401);
+    const deleteRes = await request(app)
+      .delete(`/journal/${createdEntries[0]._id}`)
+      .set('Authorization', 'Bearer ' + createdToken);
+    expect(deleteRes.statusCode).toEqual(401);
+  });
+
   describe('logged in user Journal actions', () => {
     beforeEach(async () => {
       createdToken = jwt.sign({ sub: createdUsers[0]._id }, secret, {

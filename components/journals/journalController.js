@@ -29,8 +29,8 @@ async function edit(req, res) {
     const foundEntry = await Journal.findById(req.params.id);
     if (!foundEntry)
       return res.status(404).json({ message: 'entry not found' });
-    // here check if user is logged in
-    // check if user is owner
+    if (!foundEntry.author.equals(req.currentUser._id))
+      return res.status(401).json({ message: 'Unauthorized' });
     foundEntry.set(req.body);
     foundEntry.save();
     return res.status(202).json(foundEntry);
@@ -47,6 +47,8 @@ async function destroy(req, res) {
     const foundEntry = await Journal.findById(req.params.id);
     if (!foundEntry)
       return res.status(404).json({ message: 'entry not found' });
+    if (!foundEntry.author.equals(req.currentUser._id))
+      return res.status(401).json({ message: 'Unauthorized' });
     foundEntry.deleteOne();
     return res.status(204).json({ message: 'delete' });
   } catch (err) {
