@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
+  testEnvironment: 'jest-environment-node',
   setupFilesAfterEnv: ['./setupTests.js'],
   verbose: true,
   collectCoverage: true,
@@ -7,7 +7,12 @@ module.exports = {
     '**/*.{js,jsx}',
     '!**/node_modules/**',
     '!**/vendor/**',
-    '!**/coverage/**'
+    '!**/coverage/**',
+    '!<rootDir>/*config.js'
   ],
-  preset: '@shelf/jest-mongodb'
+  preset: '@shelf/jest-mongodb',
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname'
+  ]
 };
