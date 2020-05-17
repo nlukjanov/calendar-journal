@@ -91,21 +91,8 @@ describe('User controller', () => {
     expect(res.body).toEqual({ message: 'Unauthorized' });
   });
 
-  it('should return user data with populated journal entries', async () => {
+  it('should return user profile', async () => {
     const validAuthor = await User.create(validUser);
-    const validEntries = [
-      {
-        author: validAuthor._id,
-        title: 'title1'
-      },
-
-      {
-        author: validAuthor._id,
-        title: 'title2'
-      }
-    ];
-    await Journal.create(validEntries[0]);
-    await Journal.create(validEntries[1]);
     const createdToken = jwt.sign({ sub: validAuthor._id }, secret, {
       expiresIn: '24h'
     });
@@ -115,7 +102,5 @@ describe('User controller', () => {
       .expect(200);
     await User.findById(validAuthor._id);
     expect(res.body.username).toEqual(validUser.username);
-    expect(res.body.journalEntries[0].title).toEqual(validEntries[0].title);
-    expect(res.body.journalEntries[1].title).toEqual(validEntries[1].title);
   });
 });

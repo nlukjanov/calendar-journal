@@ -35,9 +35,7 @@ async function login(req, res) {
 
 async function myjournal(req, res) {
   try {
-    const user = await User.findById(req.currentUser._id).populate(
-      'journalEntries'
-    );
+    const user = await User.findById(req.currentUser._id);
     if (!user) throw new Error('Unauthorized');
     return res.status(200).json(user);
   } catch (err) {
