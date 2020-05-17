@@ -8,14 +8,7 @@ const app = require('../../app');
 // eslint-disable-next-line node/no-unpublished-require
 const request = require('supertest');
 
-const validUser = {
-  username: 'nik',
-  email: 'email',
-  password: 'pass',
-  passwordConfirmation: 'pass'
-};
-
-let createdUser;
+let createdUsers;
 let createdEntries;
 let createdToken;
 
@@ -33,15 +26,28 @@ describe('Journal controller', () => {
   });
 
   beforeEach(async () => {
-    createdUser = await User.create(validUser);
+    createdUsers = await User.insertMany([
+      {
+        username: 'nik',
+        email: 'email',
+        password: 'pass',
+        passwordConfirmation: 'pass'
+      },
+      {
+        username: 'nik2',
+        email: 'email',
+        password: 'pass',
+        passwordConfirmation: 'pass'
+      }
+    ]);
     createdEntries = await Journal.insertMany([
       {
-        author: createdUser._id,
+        author: createdUsers[0]._id,
         title: 'title1'
       },
 
       {
-        author: createdUser._id,
+        author: createdUsers[0]._id,
         title: 'title2'
       }
     ]);
@@ -70,14 +76,14 @@ describe('Journal controller', () => {
 
   describe('logged in user Journal actions', () => {
     beforeEach(async () => {
-      createdToken = jwt.sign({ sub: validUser.username }, secret, {
+      createdToken = jwt.sign({ sub: createdUsers[0]._id }, secret, {
         expiresIn: '24h'
       });
     });
 
     it('should create a journal entry', async () => {
       const validEntry = {
-        author: createdUser._id,
+        author: createdUsers[0]._id,
         title: 'title1'
       };
       const res = await request(app)
@@ -120,7 +126,7 @@ describe('Journal controller', () => {
 
     it('should edit journal entry', async () => {
       const entryEdit = {
-        author: createdUser._id,
+        author: createdUsers[0]._id,
         title: 'title1',
         body: 'some body text'
       };

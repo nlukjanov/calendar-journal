@@ -106,7 +106,7 @@ describe('User controller', () => {
     ];
     await Journal.create(validEntries[0]);
     await Journal.create(validEntries[1]);
-    const createdToken = jwt.sign({ sub: validUser.username }, secret, {
+    const createdToken = jwt.sign({ sub: validAuthor._id }, secret, {
       expiresIn: '24h'
     });
     const res = await request(app)
