@@ -32,7 +32,6 @@
     "jest-watch-typeahead": "^0.6.0",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
-    "snyk": "^1.321.0",
     "supertest": "^4.0.2"
   }
 }
