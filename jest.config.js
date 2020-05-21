@@ -9,11 +9,12 @@ module.exports = {
     '!**/vendor/**',
     '!**/coverage/**',
     '!<rootDir>/*config.js',
-    '!<rootDir>/server.js'
+    '!<rootDir>/backend/server.js'
   ],
   preset: '@shelf/jest-mongodb',
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
-  ]
+  ],
+  modulePathIgnorePatterns: ['<rootDir>/src/']
 };
