@@ -26,7 +26,6 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@shelf/jest-mongodb": "^1.1.5",
-    "babel-jest": "^26.0.1",
     "babel-polyfill": "^6.26.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-jest": "^23.11.0",
@@ -39,7 +38,7 @@
     "start:front": "react-scripts start",
     "start:back": "nodemon --exec babel-node backend/server.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:front": "react-scripts test",
     "test:back": "jest --watchAll --runInBand",
     "eject": "react-scripts eject"
   },

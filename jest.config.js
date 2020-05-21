@@ -1,6 +1,6 @@
 module.exports = {
   testEnvironment: 'jest-environment-node',
-  setupFilesAfterEnv: ['./setupTests.js'],
+  setupFilesAfterEnv: ['./setupTestsBack.js'],
   verbose: true,
   collectCoverage: true,
   collectCoverageFrom: [
