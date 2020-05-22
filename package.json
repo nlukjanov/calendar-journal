@@ -3,23 +3,34 @@
   "description": "calendar journal web app",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start:front": "react-scripts start",
+    "start:back": "nodemon --exec babel-node backend/server.js",
+    "build": "react-scripts build",
+    "test:front": "react-scripts test --collect-coverage --watch --verbose",
+    "test:back": "jest --watchAll --runInBand",
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
+  },
   "dependencies": {
+    "@babel/node": "^7.8.7",
+    "@shelf/jest-mongodb": "^1.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "axios": "^0.19.2",
+    "babel-polyfill": "^6.26.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.13",
-    "regenerator-runtime": "^0.13.5",
-    "@babel/node": "^7.8.7",
-    "@shelf/jest-mongodb": "^1.1.5",
-    "babel-polyfill": "^6.26.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "regenerator-runtime": "^0.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -27,20 +38,15 @@
     "@babel/preset-env": "^7.9.6",
     "@shelf/jest-mongodb": "^1.1.5",
     "babel-polyfill": "^6.26.0",
+    "cypress": "^4.6.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-jest": "^23.11.0",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
     "jest-watch-typeahead": "^0.6.0",
     "nodemon": "^2.0.3",
     "supertest": "^4.0.2"
-  },
-  "scripts": {
-    "start:front": "react-scripts start",
-    "start:back": "nodemon --exec babel-node backend/server.js",
-    "build": "react-scripts build",
-    "test:front": "react-scripts test",
-    "test:back": "jest --watchAll --runInBand",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
