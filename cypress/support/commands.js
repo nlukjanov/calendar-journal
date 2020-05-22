@@ -23,3 +23,5 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// eslint-disable-next-line node/no-unpublished-import
+import '@testing-library/cypress/add-commands';
