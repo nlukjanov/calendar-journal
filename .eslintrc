@@ -6,11 +6,12 @@
     "node": true,
     "jest": true
   },
-  "plugins": ["jest", "node", "babel"],
+  "plugins": ["jest", "node", "babel", "react", "react-hooks"],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
-    "plugin:node/recommended"
+    "plugin:node/recommended",
+    "plugin:react/recommended"
   ],
   "parserOptions": {
     "sourceType": "module",
