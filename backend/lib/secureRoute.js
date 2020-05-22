@@ -3,7 +3,6 @@ const { secret } = require('../config/environment');
 const User = require('../components/users/userModel');
 function secureRoute(req, res, next) {
   if (!req.headers.authorization) {
-    console.log('no authorization header sent');
     return res.status(401).json({ message: 'Unauthorized' });
   }
   const token = req.headers.authorization.replace('Bearer ', '');
