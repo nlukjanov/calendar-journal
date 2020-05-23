@@ -1,11 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav data-testid='nav'>
-      <button>Home</button>
-      <button>Sign in</button>
-      <button>Sign up</button>
+      <Link to='/'>
+        <button>Home</button>
+      </Link>
+      <Link to='/signin'>
+        <button>Sign in</button>
+      </Link>
+      <Link to='/signup'>
+        <button>Sign up</button>
+      </Link>
     </nav>
   );
 };

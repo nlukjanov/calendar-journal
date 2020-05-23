@@ -4,6 +4,7 @@ import './App.css';
 
 const Landing = lazy(() => import('./components/Landing/Landing'));
 const Navbar = lazy(() => import('./components/Navbar/Navbar'));
+const Signup = lazy(() => import('./components/Signup/Signup'));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path='/' component={Landing} />
+            <Route path='/signup' component={Signup} />
           </Switch>
         </main>
       </BrowserRouter>
