@@ -12,14 +12,23 @@ describe('calendar journal app', () => {
   it('should direct to signup', () => {
     cy.visit('/');
     cy.findByText('Sign up').click();
+    cy.location('pathname').should('eq', '/signup');
+  });
+
+  it('should signup new user', () => {
+    cy.exec('mongo calendar-journal-development --eval "db.dropDatabase()"');
+    cy.visit('/signup');
     cy.findByLabelText('Username');
     cy.findByLabelText('Email');
     cy.findByLabelText('Password');
     cy.findByLabelText('Password Confirmation');
-    cy.findByPlaceholderText('Username');
-    cy.findByPlaceholderText('Email');
-    cy.findByPlaceholderText('Password');
-    cy.findByPlaceholderText('Password Confirmation');
-    cy.findByText('Sign Up');
+    cy.findByPlaceholderText('Username').type('Nik');
+    cy.findByPlaceholderText('Email').type('nik@mail.com');
+    cy.findByPlaceholderText('Password').type('pass');
+    cy.findByPlaceholderText('Password Confirmation').type('pass');
+    cy.findByText('Sign Up').click();
+    cy.location('pathname').should('eq', '/signin');
   });
+
+  // add test to show errors if form is incorrect
 });
