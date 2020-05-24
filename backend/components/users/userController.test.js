@@ -29,8 +29,7 @@ const wrongPassUser = {
 
 const userLogin = {
   email: 'email',
-  password: 'pass',
-  passwordConfirmation: 'pass'
+  password: 'pass'
 };
 
 describe('User controller', () => {
