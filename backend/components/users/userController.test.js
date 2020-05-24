@@ -52,7 +52,7 @@ describe('User controller', () => {
 
   it('should create a user', async () => {
     const res = await request(app)
-      .post('/register')
+      .post('/api/register')
       .send(validUser)
       .expect(201);
     expect(res.body).toEqual({
@@ -64,7 +64,7 @@ describe('User controller', () => {
   });
 
   it('should throw an error if user data is incorrect', async () => {
-    const res = await request(app).post('/register').send(invalidUser);
+    const res = await request(app).post('/api/register').send(invalidUser);
     expect(res.statusCode).toEqual(422);
   });
 
@@ -74,7 +74,7 @@ describe('User controller', () => {
       expiresIn: '24h'
     });
     const createdTokenPayload = jwt.verify(createdToken, secret);
-    const res = await request(app).post('/login').send(validUser);
+    const res = await request(app).post('/api/login').send(validUser);
     const token = res.body.token;
     expect(res.body).toEqual({
       message: `Welcome back ${validUser.username}`,
@@ -86,7 +86,7 @@ describe('User controller', () => {
 
   it('should return 404 if user is not found', async () => {
     await User.create(validUser);
-    const res = await request(app).post('/login').send(wrongPassUser);
+    const res = await request(app).post('/api/login').send(wrongPassUser);
     expect(res.statusCode).toEqual(401);
     expect(res.body).toEqual({ message: 'Unauthorized' });
   });
@@ -97,7 +97,7 @@ describe('User controller', () => {
       expiresIn: '24h'
     });
     const res = await request(app)
-      .get('/myjournal')
+      .get('/api/myjournal')
       .set('Authorization', 'Bearer ' + createdToken)
       .expect(200);
     await User.findById(validAuthor._id);

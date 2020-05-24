@@ -72,13 +72,13 @@ describe('Journal controller', () => {
   });
 
   it('should return 401 if user is not logged in (jwt not sent)', async () => {
-    const postRes = await request(app).post('/journal');
+    const postRes = await request(app).post('/api/journal');
     expect(postRes.statusCode).toEqual(401);
-    const getRes = await request(app).get('/journal');
+    const getRes = await request(app).get('/api/journal');
     expect(getRes.statusCode).toEqual(401);
-    const editRes = await request(app).put('/journal/anyId');
+    const editRes = await request(app).put('/api/journal/anyId');
     expect(editRes.statusCode).toEqual(401);
-    const deleteRes = await request(app).delete('/journal/anyId');
+    const deleteRes = await request(app).delete('/api/journal/anyId');
     expect(deleteRes.statusCode).toEqual(401);
   });
 
@@ -87,16 +87,16 @@ describe('Journal controller', () => {
       expiresIn: '24h'
     });
 
-    const postRes = await request(app).post('/journal');
+    const postRes = await request(app).post('/api/journal');
     expect(postRes.statusCode).toEqual(401);
-    const getRes = await request(app).get('/journal');
+    const getRes = await request(app).get('/api/journal');
     expect(getRes.statusCode).toEqual(401);
     const editRes = await request(app)
-      .put(`/journal/${createdEntries[0]._id}`)
+      .put(`/api/journal/${createdEntries[0]._id}`)
       .set('Authorization', 'Bearer ' + createdToken);
     expect(editRes.statusCode).toEqual(401);
     const deleteRes = await request(app)
-      .delete(`/journal/${createdEntries[0]._id}`)
+      .delete(`/api/journal/${createdEntries[0]._id}`)
       .set('Authorization', 'Bearer ' + createdToken);
     expect(deleteRes.statusCode).toEqual(401);
   });
@@ -114,7 +114,7 @@ describe('Journal controller', () => {
         title: 'title1'
       };
       const res = await request(app)
-        .post('/journal')
+        .post('/api/journal')
         .set('Authorization', 'Bearer ' + createdToken)
         .send(validEntry);
       const journalFromDb = await Journal.findById(createdEntries[0]._id);
@@ -132,7 +132,7 @@ describe('Journal controller', () => {
         author: authorId
       };
       const res = await request(app)
-        .post('/journal')
+        .post('/api/journal')
         .set('Authorization', 'Bearer ' + createdToken)
         .send(invalidJournalEntry);
       expect(res.statusCode).toEqual(422);
@@ -140,7 +140,7 @@ describe('Journal controller', () => {
 
     it('should show all journal entries for particular user', async () => {
       const res = await request(app)
-        .get('/journal')
+        .get('/api/journal')
         .set('Authorization', 'Bearer ' + createdToken);
       expect(res.status).toEqual(200);
       expect(res.body).toEqual(expect.any(Array));
@@ -159,7 +159,7 @@ describe('Journal controller', () => {
       };
       const entryToEdit = await Journal.findOne({ title: 'title1' });
       const res = await request(app)
-        .put(`/journal/${entryToEdit._id}`)
+        .put(`/api/journal/${entryToEdit._id}`)
         .set('Authorization', 'Bearer ' + createdToken)
         .send(entryEdit)
         .expect(202);
@@ -171,7 +171,7 @@ describe('Journal controller', () => {
     it('should throw and error if no entry found', async () => {
       const invalidEntryId = mongoose.Types.ObjectId();
       const res = await request(app)
-        .put(`/journal/${invalidEntryId}`)
+        .put(`/api/journal/${invalidEntryId}`)
         .set('Authorization', 'Bearer ' + createdToken);
       expect(res.statusCode).toEqual(404);
       expect(res.body).toEqual({ message: 'entry not found' });
@@ -180,7 +180,7 @@ describe('Journal controller', () => {
     it('should delete journal entry', async () => {
       const entryToDelete = await Journal.findById(createdEntries[0]._id);
       const res = await request(app)
-        .delete(`/journal/${entryToDelete._id}`)
+        .delete(`/api/journal/${entryToDelete._id}`)
         .set('Authorization', 'Bearer ' + createdToken);
       expect(res.status).toEqual(204);
       const deletedEntry = await Journal.findById(entryToDelete._id);
@@ -190,7 +190,7 @@ describe('Journal controller', () => {
     it('should throw error if journal entry not found', async () => {
       const invalidEntryId = mongoose.Types.ObjectId();
       const res = await request(app)
-        .delete(`/journal/${invalidEntryId._id}`)
+        .delete(`/api/journal/${invalidEntryId._id}`)
         .set('Authorization', 'Bearer ' + createdToken);
       expect(res.status).toEqual(404);
     });
