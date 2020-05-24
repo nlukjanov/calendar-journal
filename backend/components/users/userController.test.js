@@ -27,6 +27,12 @@ const wrongPassUser = {
   passwordConfirmation: 'notpass'
 };
 
+const userLogin = {
+  email: 'email',
+  password: 'pass',
+  passwordConfirmation: 'pass'
+};
+
 describe('User controller', () => {
   beforeEach(async () => {
     await mongoose.connect(
@@ -74,7 +80,7 @@ describe('User controller', () => {
       expiresIn: '24h'
     });
     const createdTokenPayload = jwt.verify(createdToken, secret);
-    const res = await request(app).post('/api/login').send(validUser);
+    const res = await request(app).post('/api/login').send(userLogin);
     const token = res.body.token;
     expect(res.body).toEqual({
       message: `Welcome back ${validUser.username}`,

@@ -17,7 +17,7 @@ async function register(req, res) {
 
 async function login(req, res) {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ email: req.body.email });
     if (!user || !user.validatePassword(req.body.password)) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
