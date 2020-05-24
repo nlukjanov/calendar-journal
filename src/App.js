@@ -6,6 +6,8 @@ const Landing = lazy(() => import('./components/Landing/Landing'));
 const Navbar = lazy(() => import('./components/Navbar/Navbar'));
 const Signup = lazy(() => import('./components/Signup/Signup'));
 const Signin = lazy(() => import('./components/Signin/Signin'));
+const MyJournal = lazy(() => import('./components/MyJournal/MyJournal'));
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
             <Route exact path='/' component={Landing} />
             <Route path='/signup' component={Signup} />
             <Route path='/signin' component={Signin} />
+            <Route path='/myjournal' component={MyJournal} />
           </Switch>
         </main>
       </BrowserRouter>
