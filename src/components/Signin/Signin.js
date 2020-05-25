@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { setToken } from '../../lib/authHelper';
 
 const Signin = () => {
   const history = useHistory();
@@ -16,7 +17,8 @@ const Signin = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      await axios.post('http://localhost:4000/api/login', formData);
+      const res = await axios.post('http://localhost:4000/api/login', formData);
+      setToken(res.data.token);
       history.push('/myjournal');
       // add notification with res
     } catch (error) {
