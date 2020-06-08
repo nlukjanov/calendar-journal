@@ -7,7 +7,7 @@
     "db:start": "mongod --fork --logpath /dev/null",
     "db:stop": "mongo admin --eval 'db.shutdownServer()'",
     "start:front": "react-scripts start",
-    "start:back": "nodemon --exec babel-node backend/server.js && npm run db:start",
+    "start:back": "npm run db:start && nodemon --exec babel-node backend/server.js",
     "build": "react-scripts build",
     "test:front": "react-scripts test --collect-coverage --watch --verbose --env=jest-environment-jsdom-sixteen",
     "test:back": "jest --watchAll --runInBand",
