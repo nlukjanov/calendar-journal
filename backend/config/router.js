@@ -5,7 +5,6 @@ const secureRoute = require('../lib/secureRoute');
 
 router.route('/register').post(users.register);
 router.route('/login').post(users.login);
-router.route('/myjournal').get(secureRoute, users.myjournal);
 
 router.route('/journal').get(secureRoute, journal.index).post(secureRoute, journal.create);
 

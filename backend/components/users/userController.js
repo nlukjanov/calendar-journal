@@ -33,15 +33,5 @@ async function login(req, res) {
   }
 }
 
-async function myjournal(req, res) {
-  try {
-    const user = await User.findById(req.currentUser._id);
-    if (!user) throw new Error('Unauthorized');
-    return res.status(200).json(user);
-  } catch (err) {
-    console.log(err);
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-}
 
-module.exports = { register, login, myjournal };
+module.exports = { register, login };
