@@ -13,7 +13,7 @@ const MyJournal = () => {
     const headers = { headers: { Authorization: `Bearer ${getToken()}` } };
     try {
       const res = await axios.get(
-        'http://localhost:4000/api/myjournal',
+        'http://localhost:4000/api/journal',
         headers
       );
       setJournalEntries(res.body);
