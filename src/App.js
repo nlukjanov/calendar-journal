@@ -7,6 +7,7 @@ const Navbar = lazy(() => import('./components/Navbar/Navbar'));
 const Signup = lazy(() => import('./components/Signup/Signup'));
 const Signin = lazy(() => import('./components/Signin/Signin'));
 const MyJournal = lazy(() => import('./components/MyJournal/MyJournal'));
+const NewEntry = lazy(() => import('./components/NewEntry/NewEntry'));
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path='/signup' component={Signup} />
             <Route path='/signin' component={Signin} />
             <Route path='/myjournal' component={MyJournal} />
+            <Route path='/new-entry' component={NewEntry} />
           </Switch>
         </main>
       </BrowserRouter>
