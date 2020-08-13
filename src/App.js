@@ -8,11 +8,11 @@ const Signup = lazy(() => import('./components/Signup/Signup'));
 const Signin = lazy(() => import('./components/Signin/Signin'));
 const MyJournal = lazy(() => import('./components/MyJournal/MyJournal'));
 const NewEntry = lazy(() => import('./components/NewEntry/NewEntry'));
-
+const ErrorPage = lazy(() => import('./components/ErrorPage/ErrorPage'));
 
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div> }>
+    <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
         <main data-testid='main'>
           <Navbar />
@@ -22,6 +22,7 @@ function App() {
             <Route path='/signin' component={Signin} />
             <Route path='/myjournal' component={MyJournal} />
             <Route path='/new-entry' component={NewEntry} />
+            <Route path='/*' component={ErrorPage} />
           </Switch>
         </main>
       </BrowserRouter>
