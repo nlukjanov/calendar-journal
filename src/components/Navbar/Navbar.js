@@ -13,6 +13,9 @@ const Navbar = () => {
       <Link to='/signup'>
         <button>Sign up</button>
       </Link>
+      <Link to='/new-entry'>
+        <button>New Entry</button>
+      </Link>
     </nav>
   );
 };

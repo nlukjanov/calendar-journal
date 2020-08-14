@@ -12,6 +12,7 @@ async function index(req, res) {
 }
 
 async function create(req, res) {
+  req.body.author = req.currentUser;
   try {
     const journalEntry = await Journal.create(req.body);
     return res

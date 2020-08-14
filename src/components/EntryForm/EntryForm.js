@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { getToken } from '../../lib/authHelper';
 import axios from 'axios';
 
 const EntryForm = () => {
@@ -9,7 +10,9 @@ const EntryForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/api/journal', formData);
+      await axios.post('http://localhost:4000/api/journal', formData, {
+        headers: { Authorization: `Bearer ${getToken('token')}` }
+      });
       history.push('/myjournal');
       // add notification with res
     } catch (error) {
