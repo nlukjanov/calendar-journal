@@ -155,7 +155,7 @@ describe('Journal controller', () => {
       const entryEdit = {
         author: createdUsers[0]._id,
         title: 'title1',
-        body: 'some body text'
+        entryText: 'some body text'
       };
       const entryToEdit = await Journal.findOne({ title: 'title1' });
       const res = await request(app)
