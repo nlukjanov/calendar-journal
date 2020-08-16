@@ -89,23 +89,26 @@ describe('User controller', () => {
     expect(createdTokenPayload.sub).toEqual(returnedTokenPayload.sub);
   });
 
-  it('should return 404 if user is not found', async () => {
+  it('should return 401 if user is not found', async () => {
     await User.create(validUser);
     const res = await request(app).post('/api/login').send(wrongPassUser);
     expect(res.statusCode).toEqual(401);
     expect(res.body).toEqual({ message: 'Unauthorized' });
   });
 
-  it('should return user profile', async () => {
-    const validAuthor = await User.create(validUser);
-    const createdToken = jwt.sign({ sub: validAuthor._id }, secret, {
-      expiresIn: '24h'
-    });
-    const res = await request(app)
-      .get('/api/myjournal')
-      .set('Authorization', 'Bearer ' + createdToken)
-      .expect(200);
-    await User.findById(validAuthor._id);
-    expect(res.body.username).toEqual(validUser.username);
-  });
+  // it('should return user profile', async () => {
+  //   const validAuthor = await User.create(validUser);
+  //   const createdToken = jwt.sign({ sub: validAuthor._id }, secret, {
+  //     expiresIn: '24h'
+  //   });
+  //   const createdEntry = await Journal.create({
+  //     author: validAuthor._id,
+  //     title: 'entry title'
+  //   });
+  //   const res = await request(app)
+  //     .get('/api/journal')
+  //     .set('Authorization', 'Bearer ' + createdToken)
+  //     .expect(200);
+  //   expect(res.body[0].title).toEqual(createdEntry.title);
+  // });
 });
