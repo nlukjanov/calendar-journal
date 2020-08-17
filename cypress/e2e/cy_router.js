@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-describe('calendar journal app', () => {
+describe('Router', () => {
   it('should direct to signup', () => {
     cy.visit('/');
     cy.findByText('Sign up').click();

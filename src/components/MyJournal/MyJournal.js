@@ -11,6 +11,7 @@ const MyJournal = () => {
 
   const getEntries = async () => {
     const headers = { headers: { Authorization: `Bearer ${getToken()}` } };
+    console.log(headers)
     try {
       const res = await axios.get('http://localhost:4000/api/journal', headers);
       setJournalEntries(res.data);

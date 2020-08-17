@@ -1,6 +1,14 @@
 /* eslint-disable jest/expect-expect */
-describe('calendar journal app', () => {
+describe('New entry', () => {
   it('should creat a new entry', () => {
+    // eslint-disable-next-line jest/valid-expect-in-promise
+    cy.request('POST', 'http://localhost:4000/api/login', {
+      email: 'nik@mail.com',
+      password: 'pass'
+    }).then((response) => {
+      window.localStorage.setItem('token', response.body.token);
+    });
+
     cy.visit('/new-entry');
     cy.findByText('New Journal Entry');
     cy.findByTestId('entry-form');

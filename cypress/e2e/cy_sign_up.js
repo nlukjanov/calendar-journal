@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-describe('calendar journal app', () => {
+describe('Sign up', () => {
 
   it('should signup new user', () => {
     cy.exec('mongo calendar-journal-development --eval "db.dropDatabase()"');
@@ -9,7 +9,7 @@ describe('calendar journal app', () => {
     cy.findByLabelText('Password');
     cy.findByLabelText('Password Confirmation');
     cy.findByPlaceholderText('Username').type('Nik');
-    cy.findByPlaceholderText('Email').type('nik@mail.com');
+    cy.findByPlaceholderText('Email').type('nik@email.com');
     cy.findByPlaceholderText('Password').type('pass');
     cy.findByPlaceholderText('Password Confirmation').type('pass');
     cy.findByText('Sign Up').click();

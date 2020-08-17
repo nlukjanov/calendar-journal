@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-describe('calendar journal app', () => {
+describe('My Journal', () => {
   it('should display User\'s journal entries', () => {
     cy.visit('/signin');
     cy.findByLabelText('Email');
