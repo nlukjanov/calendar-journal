@@ -6,6 +6,7 @@
   "scripts": {
     "db:start": "mongod --fork --logpath /dev/null",
     "db:stop": "mongo admin --eval 'db.shutdownServer()'",
+    "seed": "node db/userSeeds.js",
     "start:front": "react-scripts start",
     "start:back": "npm run db:start && nodemon --exec babel-node backend/server.js",
     "build": "react-scripts build",
