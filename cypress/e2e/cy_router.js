@@ -8,7 +8,7 @@ describe('Router', () => {
 
   it('should direct to signin', () => {
     cy.visit('/');
-    cy.findByText('Sign In').click();
+    cy.findByText(/Sign In/i).click();
     cy.location('pathname').should('eq', '/signin');
   });
 });
