@@ -9,7 +9,9 @@ module.exports = {
     '!**/vendor/**',
     '!**/coverage/**',
     '!<rootDir>/*config.js',
-    '!<rootDir>/backend/server.js'
+    '!<rootDir>/backend/server.js',
+    '!**/cypress/**',
+    '!**/db/**'
   ],
   preset: '@shelf/jest-mongodb',
   watchPlugins: [
