@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+import { logout, isAuthenticated } from '../../lib/authHelper';
 
 const Navbar = () => {
   return (
@@ -7,17 +9,20 @@ const Navbar = () => {
       <Link to='/'>
         <button>Home</button>
       </Link>
-      <Link to='/signin'>
+      {!isAuthenticated() && <Link to='/signin'>
         <button>Sign in</button>
-      </Link>
-      <Link to='/signup'>
+      </Link>}
+      {!isAuthenticated() && <Link to='/signup'>
         <button>Sign up</button>
-      </Link>
-      <Link to='/new-entry'>
+      </Link>}
+      {isAuthenticated() && <Link to='/new-entry'>
         <button>New Entry</button>
-      </Link>
+      </Link>}
+      {isAuthenticated() && <Link to='/' onClick={logout}>
+        <button>Logout</button>
+      </Link>}
     </nav>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
