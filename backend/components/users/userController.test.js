@@ -13,6 +13,14 @@ const validUser = {
   password: 'pass',
   passwordConfirmation: 'pass'
 };
+
+const notExistingUser = {
+  username: 'niki',
+  email: 'nikimail',
+  password: 'notpass',
+  passwordConfirmation: 'notpass'
+};
+
 const invalidUser = {
   username: 'nik',
   email: 'email',
@@ -91,24 +99,15 @@ describe('User controller', () => {
 
   it('should return 401 if user is not found', async () => {
     await User.create(validUser);
-    const res = await request(app).post('/api/login').send(wrongPassUser);
+    const res = await request(app).post('/api/login').send(notExistingUser);
     expect(res.statusCode).toEqual(401);
-    expect(res.body).toEqual({ message: 'Unauthorized' });
+    expect(res.body).toEqual({ error: 'No such user' });
   });
 
-  // it('should return user profile', async () => {
-  //   const validAuthor = await User.create(validUser);
-  //   const createdToken = jwt.sign({ sub: validAuthor._id }, secret, {
-  //     expiresIn: '24h'
-  //   });
-  //   const createdEntry = await Journal.create({
-  //     author: validAuthor._id,
-  //     title: 'entry title'
-  //   });
-  //   const res = await request(app)
-  //     .get('/api/journal')
-  //     .set('Authorization', 'Bearer ' + createdToken)
-  //     .expect(200);
-  //   expect(res.body[0].title).toEqual(createdEntry.title);
-  // });
+  it('should return 401 if passwords not match', async () => {
+    await User.create(validUser);
+    const res = await request(app).post('/api/login').send(wrongPassUser);
+    expect(res.statusCode).toEqual(401);
+    expect(res.body).toEqual({ error: 'Incorrect credentials' });
+  });
 });

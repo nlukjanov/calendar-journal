@@ -15,23 +15,28 @@ async function register(req, res) {
   }
 }
 
-async function login(req, res) {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user || !user.validatePassword(req.body.password)) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-    const token = jwt.sign({ sub: user._id }, secret, {
-      expiresIn: '24h'
+function login(req, res) {
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) throw new Error('User not found');
+      if (!user.validatePassword(req.body.password)) {
+        throw new Error('Incorrect credentials');
+      }
+      const token = jwt.sign({ sub: user._id }, secret, {
+        expiresIn: '24h'
+      });
+      return res
+        .status(202)
+        .json({ message: `Welcome back ${user.username}`, token });
+    })
+    .catch((err) => {
+      if (err.message === 'User not found') {
+        return res.status(401).json({ error: 'No such user' });
+      }
+      if (err.message === 'Incorrect credentials') {
+        return res.status(401).json({ error: 'Incorrect credentials' });
+      }
+      return res.status(401).json({ error: 'Unauthorized' });
     });
-    return res
-      .status(202)
-      .json({ message: `Welcome back ${user.username}`, token });
-  } catch (err) {
-    console.log(err);
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
 }
-
-
 module.exports = { register, login };
