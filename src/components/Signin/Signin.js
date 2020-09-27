@@ -17,18 +17,16 @@ const Signin = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:4000/api/login', formData);
-      console.log(res);
       setToken(res.data.token);
       history.push('/myjournal');
       // add notification with res
     } catch (error) {
-      console.log('after throw', error);
-      setSigninErrors(error);
+      setSigninErrors({ errors: error.response.data.message });
     }
   };
 
   useEffect(() => {
-    console.log('error log', signinErrors && signinErrors.error);
+    console.log('error log', signinErrors?.errors);
   }, [signinErrors]);
 
   return (
@@ -54,6 +52,7 @@ const Signin = () => {
             autoComplete='on'
             onChange={handleChange}
           />
+          {signinErrors && <small>{signinErrors.errors}</small>}
         </div>
         <div>
           <button type='submit'>Sign In</button>
