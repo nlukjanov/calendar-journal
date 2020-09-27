@@ -97,17 +97,17 @@ describe('User controller', () => {
     expect(createdTokenPayload.sub).toEqual(returnedTokenPayload.sub);
   });
 
-  it('should return 401 if user is not found', async () => {
+  it('should return 404 if user is not found', async () => {
     await User.create(validUser);
     const res = await request(app).post('/api/login').send(notExistingUser);
-    expect(res.statusCode).toEqual(401);
-    expect(res.body).toEqual({ error: 'No such user' });
+    expect(res.statusCode).toEqual(404);
+    expect(res.body).toEqual({ message: 'Incorrect credentials' });
   });
 
   it('should return 401 if passwords not match', async () => {
     await User.create(validUser);
     const res = await request(app).post('/api/login').send(wrongPassUser);
     expect(res.statusCode).toEqual(401);
-    expect(res.body).toEqual({ error: 'Incorrect credentials' });
+    expect(res.body).toEqual({ message: 'Incorrect credentials' });
   });
 });
