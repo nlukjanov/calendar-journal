@@ -87,8 +87,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier src backend --write",
-      "eslint src backend"
+      "prettier --write",
+      "eslint"
     ]
   }
 }
