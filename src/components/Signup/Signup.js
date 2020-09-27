@@ -5,7 +5,7 @@ import axios from 'axios';
 const Signup = () => {
   const history = useHistory();
   const [formData, setFormData] = useState();
-  // const [signupErrors, setSignupErrors] = useState();
+  const [signupErrors, setSignupErrors] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
     const formNewData = { ...formData, [name]: value };
@@ -14,19 +14,17 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       await axios.post('http://localhost:4000/api/register', formData);
       history.push('/signin');
       // add notification with res
     } catch (error) {
-      console.log(error);
-      // setSignupErrors(error);
+      setSignupErrors({ errors: error.response.data.errors });
     }
   };
 
   // logging after state update
-  useEffect(() => console.log(formData), [formData]);
+  useEffect(() => console.log(signupErrors?.errors), [signupErrors]);
 
   return (
     <div>
@@ -40,6 +38,7 @@ const Signup = () => {
             placeholder='Username'
             onChange={handleChange}
           />
+          {signupErrors && <small>{signupErrors?.errors.username}</small>}
         </div>
         <div>
           <label htmlFor='email'>Email</label>
@@ -50,6 +49,7 @@ const Signup = () => {
             placeholder='Email'
             onChange={handleChange}
           />
+          {signupErrors && <small>{signupErrors?.errors.email}</small>}
         </div>
         <div>
           <label htmlFor='password'>Password</label>
@@ -61,6 +61,7 @@ const Signup = () => {
             autoComplete='on'
             onChange={handleChange}
           />
+          {signupErrors && <small>{signupErrors?.errors.password}</small>}
         </div>
         <div>
           <label htmlFor='passwordConfirmation'>Password Confirmation</label>
@@ -72,6 +73,9 @@ const Signup = () => {
             autoComplete='on'
             onChange={handleChange}
           />
+          {signupErrors && (
+            <small>{signupErrors?.errors.passwordConfirmation}</small>
+          )}
         </div>
         <div>
           <button type='submit'>Sign Up</button>

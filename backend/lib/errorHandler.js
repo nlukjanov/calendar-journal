@@ -31,12 +31,10 @@ function handleError(err, req, res, next) {
       formattedErrors[key] = err.errors[key].message;
     }
 
-    return res
-      .status(406)
-      .json({
-        message: 'Something is seriously wrong',
-        errors: formattedErrors
-      });
+    return res.status(406).json({
+      message: 'Something is seriously wrong',
+      errors: formattedErrors
+    });
   }
 
   res.status(500).json({ message: 'Something is wrong with our servers' });
