@@ -18,7 +18,8 @@
     "test:back:coverage": "jest --runInBand",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "start:dev": "concurrently \"npm run start:back\" \"npm run start:front\""
+    "start:dev": "concurrently \"npm run start:back\" \"npm run start:front\"",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "axios": "^0.20.0",
@@ -52,10 +53,13 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.1.2",
+    "husky": "^4.3.0",
     "is-ci-cli": "^2.1.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-typeahead": "^0.6.1",
+    "lint-staged": "^10.4.0",
     "nodemon": "^2.0.4",
+    "prettier": "2.1.2",
     "supertest": "^5.0.0"
   },
   "eslintConfig": {
@@ -75,5 +79,16 @@
   },
   "engines": {
     "node": ">=12.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier src backend --write",
+      "eslint src backend"
+    ]
   }
 }
