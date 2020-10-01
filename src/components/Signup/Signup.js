@@ -19,7 +19,6 @@ const Signup = () => {
       await axios.post('http://localhost:4000/api/register', formData);
       history.push('/signin');
       // add notification with res
-
     } catch (error) {
       console.log(error);
       setSignupErrors(error);

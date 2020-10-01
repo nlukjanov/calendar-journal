@@ -41,7 +41,7 @@ userSchema.pre('save', function hashPassword(next) {
 
 userSchema.methods.validatePassword = function validatePassword(password) {
   return bcrypt.compareSync(password, this.password);
-};  
+};
 
 // toJSON creates id attribute === _id but represented as string, where _id is mongoose Object
 userSchema.set('toJSON', {

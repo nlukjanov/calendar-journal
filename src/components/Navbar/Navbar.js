@@ -9,18 +9,26 @@ const Navbar = () => {
       <Link to='/'>
         <button>Home</button>
       </Link>
-      {!isAuthenticated() && <Link to='/signin'>
-        <button>Sign in</button>
-      </Link>}
-      {!isAuthenticated() && <Link to='/signup'>
-        <button>Sign up</button>
-      </Link>}
-      {isAuthenticated() && <Link to='/new-entry'>
-        <button>New Entry</button>
-      </Link>}
-      {isAuthenticated() && <Link to='/' onClick={logout}>
-        <button>Logout</button>
-      </Link>}
+      {!isAuthenticated() && (
+        <Link to='/signin'>
+          <button>Sign in</button>
+        </Link>
+      )}
+      {!isAuthenticated() && (
+        <Link to='/signup'>
+          <button>Sign up</button>
+        </Link>
+      )}
+      {isAuthenticated() && (
+        <Link to='/new-entry'>
+          <button>New Entry</button>
+        </Link>
+      )}
+      {isAuthenticated() && (
+        <Link to='/' onClick={logout}>
+          <button>Logout</button>
+        </Link>
+      )}
     </nav>
   );
 };
