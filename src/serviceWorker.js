@@ -23,6 +23,7 @@ const isLocalhost = Boolean(
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
@@ -60,6 +61,7 @@ function registerValidSW(swUrl, config) {
     .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
+        // eslint-disable-next-line eqeqeq
         if (installingWorker == null) {
           return;
         }
@@ -108,6 +110,7 @@ function checkValidServiceWorker(swUrl, config) {
       const contentType = response.headers.get('content-type');
       if (
         response.status === 404 ||
+        // eslint-disable-next-line eqeqeq
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.

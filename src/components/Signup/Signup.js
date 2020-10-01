@@ -5,7 +5,7 @@ import axios from 'axios';
 const Signup = () => {
   const history = useHistory();
   const [formData, setFormData] = useState();
-  const [signupErrors, setSignupErrors] = useState();
+  // const [signupErrors, setSignupErrors] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
     const formNewData = { ...formData, [name]: value };
@@ -21,7 +21,7 @@ const Signup = () => {
       // add notification with res
     } catch (error) {
       console.log(error);
-      setSignupErrors(error);
+      // setSignupErrors(error);
     }
   };
 
