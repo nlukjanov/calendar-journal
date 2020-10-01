@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(logger);
 
-app.use('/api',router);
+app.use('/api', router);
 
 app.get('/', (req, res) => res.send('Hello World'));
 

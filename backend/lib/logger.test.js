@@ -1,7 +1,6 @@
 const logger = require('../lib/logger');
 
 describe.skip('Testing logger middleware', () => {
-
   it('should call next() once', function () {
     process.env.NODE_ENV = 'test';
     const nextSpy = jest.fn();
