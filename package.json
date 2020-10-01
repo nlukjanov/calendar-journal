@@ -17,7 +17,6 @@
     "start:dev": "concurrently \"npm run start:back\" \"npm run start:front\""
   },
   "dependencies": {
-    "@testing-library/user-event": "^12.1.6",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -40,6 +39,7 @@
     "@testing-library/cypress": "^7.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.6",
     "babel-polyfill": "^6.26.0",
     "cypress": "^5.3.0",
     "eslint-plugin-babel": "^5.3.1",
