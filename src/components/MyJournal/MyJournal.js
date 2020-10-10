@@ -15,7 +15,13 @@ const MyJournal = () => {
     const headers = { headers: { Authorization: `Bearer ${getToken()}` } };
     try {
       const res = await axios.get('http://localhost:4000/api/journal', headers);
-      setJournalEntries(res.data);
+      const events = res.data.map((entry) => {
+        return {
+          title: entry.title,
+          date: entry.created_at,
+        };
+      });
+      setJournalEntries(events);
       // add notification with res
     } catch (error) {
       console.log(error);
@@ -29,25 +35,11 @@ const MyJournal = () => {
   return (
     <>
       <div>My journal</div>
-      <div>
-        {journalEntries &&
-          journalEntries.map((entry, index) => {
-            return (
-              <div key={index}>
-                <div>{entry.title}</div>
-                <div>{entry.entryText}</div>
-              </div>
-            );
-          })}
-      </div>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
         headerToolbar={headerToolbarOptions}
-        events={[
-          { title: 'event 1', date: '2020-10-02' },
-          { title: 'event 2', date: '2020-10-02' },
-        ]}
+        events={journalEntries}
       />
     </>
   );
