@@ -36,6 +36,15 @@ const MyJournal = () => {
   }, []);
 
   useEffect(() => console.log(journalEntries), [journalEntries]);
+
+  const dateClick = function (info) {
+    alert(
+      `Clicked on: ${info.dateStr}, Coordinates: ${info.jsEvent.pageX} , ${info.jsEvent.pageY}, Current view: ${info.view.type}`,
+    );
+    // change the day's background color just for fun
+    // info.dayEl.style.backgroundColor = 'red';
+  };
+
   return (
     <>
       <div>My journal</div>
@@ -45,13 +54,7 @@ const MyJournal = () => {
         headerToolbar={headerToolbarOptions}
         events={journalEntries}
         weekNumbers={true}
-        dateClick={function (info) {
-          alert(
-            `Clicked on: ${info.dateStr}, Coordinates: ${info.jsEvent.pageX} , ${info.jsEvent.pageY}, Current view: ${info.view.type}`,
-          );
-          // change the day's background color just for fun
-          // info.dayEl.style.backgroundColor = 'red';
-        }}
+        dateClick={dateClick}
       />
     </>
   );
