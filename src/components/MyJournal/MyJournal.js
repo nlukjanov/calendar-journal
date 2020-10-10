@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+
 import { getToken } from '../../lib/authHelper';
 
 const MyJournal = () => {
   const headerToolbarOptions = {
-    start: 'title', // will normally be on the left. if RTL, will be on the right
-    center: '',
-    end: 'today prevYear prev,next nextYear', // will normally be on the right. if RTL, will be on the left
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,list',
   };
   const [journalEntries, setJournalEntries] = useState();
   const getEntries = async () => {
@@ -36,10 +40,20 @@ const MyJournal = () => {
     <>
       <div>My journal</div>
       <FullCalendar
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         initialView='dayGridMonth'
         headerToolbar={headerToolbarOptions}
         events={journalEntries}
+        weekNumbers={true}
+        dateClick={function (info) {
+          alert(
+            `Clicked on: ${info.dateStr}, Coordinates: ${
+              info.jsEvent.pageX + ',' + info.jsEvent.pageY
+            }, Current view: ${info.view.type}`,
+          );
+          // change the day's background color just for fun
+          // info.dayEl.style.backgroundColor = 'red';
+        }}
       />
     </>
   );
