@@ -74,7 +74,6 @@ describe('Journal model', () => {
         title: 'entry with title',
         entryText: 'entry text',
       });
-      console.log(journalEntryWithoutDate);
       expect(journalEntryWithoutDate.date).not.toBe(undefined);
     });
 

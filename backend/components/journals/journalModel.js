@@ -5,7 +5,7 @@ const journalSchema = new mongoose.Schema(
     author: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     entryText: { type: String },
-    date: { type: Date },
+    date: { type: Date, default: Date.now },
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
