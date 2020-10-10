@@ -57,15 +57,25 @@ describe('Journal model', () => {
     });
 
     it('journal model should have date field', () => {
-      const dateNow = new Date();
-      const journalEntryWithText = new Journal({
+      const dateNow = new Date(1995, 11, 17);
+      const journalEntryWithDate = new Journal({
         author: user,
         title: 'entry with title',
         entryText: 'entry text',
         date: dateNow,
       });
 
-      expect(journalEntryWithText.date).toStrictEqual(dateNow);
+      expect(journalEntryWithDate.date).toStrictEqual(dateNow);
+    });
+
+    it('journal model date field should default to current date and time if not provided', () => {
+      const journalEntryWithoutDate = new Journal({
+        author: user,
+        title: 'entry with title',
+        entryText: 'entry text',
+      });
+      console.log(journalEntryWithoutDate);
+      expect(journalEntryWithoutDate.date).not.toBe(undefined);
     });
 
     it('journal model should not accept fields different from set in the model', () => {
