@@ -18,7 +18,7 @@ const MyJournal = () => {
       const events = res.data.map((entry) => {
         return {
           title: entry.title,
-          date: entry.created_at,
+          date: entry.date,
         };
       });
       setJournalEntries(events);
