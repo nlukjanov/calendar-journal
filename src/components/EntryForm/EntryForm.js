@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getToken } from '../../lib/authHelper';
 import axios from 'axios';
+import { getToken } from '../../lib/authHelper';
 
 const EntryForm = () => {
   const history = useHistory();
-  const [formData, setFormData] = useState({ title: '', entryText: '' });
+  const [formData, setFormData] = useState({
+    title: '',
+    entryText: '',
+    date: '',
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:4000/api/journal', formData, {
-        headers: { Authorization: `Bearer ${getToken('token')}` }
+        headers: { Authorization: `Bearer ${getToken('token')}` },
       });
       history.push('/myjournal');
       // add notification with res
     } catch (error) {
       console.log(error);
-      // setSignupErrors(error);
     }
   };
 
@@ -45,6 +48,13 @@ const EntryForm = () => {
         type='text'
         onChange={handleChange}
         value={formData.entryText}
+      />
+      <input
+        id='date'
+        name='date'
+        type='datetime-local'
+        onChange={handleChange}
+        // value={formData.date}
       />
       <button type='submit'>Create Entry</button>
     </form>
