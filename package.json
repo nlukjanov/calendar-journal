@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "db:start": "mongod --fork --logpath /dev/null",
+    "db:start": "npm run db:stop ; mongod --fork --logpath /dev/null",
     "db:stop": "mongo admin --eval 'db.shutdownServer()'",
     "seed": "node db/userSeeds.js",
     "start:front": "react-scripts start",
