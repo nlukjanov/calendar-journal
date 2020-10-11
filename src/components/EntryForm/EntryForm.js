@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { getToken } from '../../lib/authHelper';
 
-const EntryForm = () => {
+const EntryForm = ({ date }) => {
   const history = useHistory();
+  const passedDate = date ? new Date(date).toISOString().substr(0, 16) : '';
   const [formData, setFormData] = useState({
     title: '',
     entryText: '',
-    date: '',
+    date: passedDate,
   });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,6 +28,10 @@ const EntryForm = () => {
     const formNewData = { ...formData, [name]: value };
     setFormData(formNewData);
   };
+
+  useEffect(() => {
+    console.log(formData.date);
+  }, [formData.date]);
 
   return (
     <form data-testid='entry-form' onSubmit={handleSubmit}>
@@ -54,7 +58,7 @@ const EntryForm = () => {
         name='date'
         type='datetime-local'
         onChange={handleChange}
-        // value={formData.date}
+        value={formData.date}
       />
       <button type='submit'>Create Entry</button>
     </form>
