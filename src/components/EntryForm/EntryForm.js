@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { getToken } from '../../lib/authHelper';
 
 const EntryForm = ({ date }) => {
@@ -34,34 +37,68 @@ const EntryForm = ({ date }) => {
   }, [formData.date]);
 
   return (
-    <form data-testid='entry-form' onSubmit={handleSubmit}>
-      <label htmlFor='title'>Title</label>
-      <input
-        id='title'
-        name='title'
-        placeholder='Entry title'
-        type='text'
-        onChange={handleChange}
-        value={formData.title}
-      />
-      <label htmlFor='entryText'>Entry text</label>
-      <input
-        id='entryText'
-        name='entryText'
-        placeholder='Entry text'
-        type='text'
-        onChange={handleChange}
-        value={formData.entryText}
-      />
-      <input
-        id='date'
-        name='date'
-        type='datetime-local'
-        onChange={handleChange}
-        value={formData.date}
-      />
-      <button type='submit'>Create Entry</button>
-    </form>
+    <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId='title'>
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            name='title'
+            type='title'
+            placeholder='Enter title'
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId='entryText'>
+          <Form.Label>Entry Text</Form.Label>
+          <Form.Control
+            type='textarea'
+            name='entryText'
+            placeholder='Entry Text'
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId='date'>
+          <Form.Label>Date</Form.Label>
+          <Form.Control
+            type='datetime-local'
+            name='date'
+            placeholder='Date'
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Button variant='primary' type='submit'>
+          Create Entry
+        </Button>
+      </Form>
+    </Card>
+    // <form data-testid='entry-form' onSubmit={handleSubmit}>
+    //   <label htmlFor='title'>Title</label>
+    //   <input
+    //     id='title'
+    //     name='title'
+    //     placeholder='Entry title'
+    //     type='text'
+    //     onChange={handleChange}
+    //     value={formData.title}
+    //   />
+    //   <label htmlFor='entryText'>Entry text</label>
+    //   <input
+    //     id='entryText'
+    //     name='entryText'
+    //     placeholder='Entry text'
+    //     type='text'
+    //     onChange={handleChange}
+    //     value={formData.entryText}
+    //   />
+    //   <input
+    //     id='date'
+    //     name='date'
+    //     type='datetime-local'
+    //     onChange={handleChange}
+    //     value={formData.date}
+    //   />
+    //   <button type='submit'>Create Entry</button>
+    // </form>
   );
 };
 
