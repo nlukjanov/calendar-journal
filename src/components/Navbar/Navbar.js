@@ -1,41 +1,53 @@
 import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import { Link, withRouter } from 'react-router-dom';
 
 import { logout, isAuthenticated } from '../../lib/authHelper';
 
-const Navbar = () => {
+const NavbarComponent = () => {
   return (
-    <nav data-testid='nav'>
-      <Link to='/'>
-        <button>Home</button>
-      </Link>
-      {!isAuthenticated() && (
-        <Link to='/signin'>
-          <button>Sign in</button>
+    <>
+      <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+        <Link to='/'>
+          <Navbar.Brand>Home</Navbar.Brand>
         </Link>
-      )}
-      {!isAuthenticated() && (
-        <Link to='/signup'>
-          <button>Sign up</button>
-        </Link>
-      )}
-      {isAuthenticated() && (
-        <Link to='/new-entry'>
-          <button>New Entry</button>
-        </Link>
-      )}
-      {isAuthenticated() && (
-        <Link to='/myjournal'>
-          <button>My Journal</button>
-        </Link>
-      )}
-      {isAuthenticated() && (
-        <Link to='/' onClick={logout}>
-          <button>Logout</button>
-        </Link>
-      )}
-    </nav>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Collapse
+          id='responsive-navbar-nav'
+          className='justify-content-end'
+        >
+          <Nav>
+            {!isAuthenticated() && (
+              <Nav.Link as={Link} to='signin'>
+                Sign In
+              </Nav.Link>
+            )}
+            {!isAuthenticated() && (
+              <Nav.Link as={Link} to='/signup'>
+                Sign Up
+              </Nav.Link>
+            )}
+            {isAuthenticated() && (
+              <Nav.Link as={Link} to='/new-entry'>
+                New Entry
+              </Nav.Link>
+            )}
+            {isAuthenticated() && (
+              <Nav.Link as={Link} to='/myjournal'>
+                My Journal
+              </Nav.Link>
+            )}
+            {isAuthenticated() && (
+              <Nav.Link as={Link} to='/' onClick={logout}>
+                Logout
+              </Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    </>
   );
 };
 
-export default withRouter(Navbar);
+export default withRouter(NavbarComponent);
