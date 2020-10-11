@@ -5,10 +5,12 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import { useHistory } from 'react-router-dom';
 
 import { getToken } from '../../lib/authHelper';
 
 const MyJournal = () => {
+  const history = useHistory();
   const headerToolbarOptions = {
     left: 'prev,next today',
     center: 'title',
@@ -37,12 +39,8 @@ const MyJournal = () => {
 
   useEffect(() => console.log(journalEntries), [journalEntries]);
 
-  const dateClick = function (info) {
-    alert(
-      `Clicked on: ${info.dateStr}, Coordinates: ${info.jsEvent.pageX} , ${info.jsEvent.pageY}, Current view: ${info.view.type}`,
-    );
-    // change the day's background color just for fun
-    // info.dayEl.style.backgroundColor = 'red';
+  const dateClick = (info) => {
+    return history.push('/new-entry', { date: info.dateStr });
   };
 
   return (
