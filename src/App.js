@@ -23,7 +23,10 @@ function App() {
             <Route path='/signup' component={Signup} />
             <Route path='/signin' component={Signin} />
             <SecureRouteFront path='/myjournal' component={MyJournal} />
-            <SecureRouteFront path='/new-entry' component={NewEntry} />
+            <SecureRouteFront
+              path='/new-entry'
+              component={(props) => <NewEntry {...props} />}
+            />
             <Route path='/*' component={ErrorPage} />
           </Switch>
         </main>
