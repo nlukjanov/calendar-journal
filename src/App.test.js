@@ -5,5 +5,7 @@ import App from './App';
 
 test('renders hello in main', async () => {
   const { getByText } = render(<App />);
-  await waitFor(() => expect(getByText(/hello/i)).toBeInTheDocument());
+  await waitFor(() =>
+    expect(getByText(/Welcome to Calendar Journal/i)).toBeInTheDocument(),
+  );
 });
