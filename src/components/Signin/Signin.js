@@ -58,7 +58,11 @@ const Signin = () => {
             autoComplete='on'
           />
         </Form.Group>
-        {signinErrors && <small>{signinErrors.errors}</small>}
+        {signinErrors && (
+          <div>
+            <small>{signinErrors.errors}</small>
+          </div>
+        )}
         <Button variant='primary' type='submit'>
           Sign In
         </Button>
