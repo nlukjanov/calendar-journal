@@ -3,9 +3,12 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import App from './App';
 
-test('renders hello in main', async () => {
+test('renders welcome on landing page', async () => {
   const { getByText } = render(<App />);
   await waitFor(() =>
     expect(getByText(/Welcome to Calendar Journal/i)).toBeInTheDocument(),
   );
+  expect(
+    getByText('Take your notes and keep your memories'),
+  ).toBeInTheDocument();
 });
