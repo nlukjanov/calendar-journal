@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { setToken } from '../../lib/authHelper';
 
 const Signin = () => {
@@ -30,35 +33,37 @@ const Signin = () => {
   }, [signinErrors]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            id='email'
-            type='text'
+    <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId='email'>
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             name='email'
-            placeholder='Email'
+            type='email'
+            placeholder='Enter email'
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            id='password'
+          <Form.Text className='text-muted'>
+            We never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group controlId='password'>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type='password'
             name='password'
             placeholder='Password'
-            autoComplete='on'
             onChange={handleChange}
+            autoComplete='on'
           />
-          {signinErrors && <small>{signinErrors.errors}</small>}
-        </div>
-        <div>
-          <button type='submit'>Sign In</button>
-        </div>
-      </form>
-    </div>
+        </Form.Group>
+        {signinErrors && <small>{signinErrors.errors}</small>}
+        <Button variant='primary' type='submit'>
+          Sign In
+        </Button>
+      </Form>
+    </Card>
   );
 };
 
