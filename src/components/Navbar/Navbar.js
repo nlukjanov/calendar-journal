@@ -19,12 +19,12 @@ const NavbarComponent = () => {
         >
           <Nav>
             {!isAuthenticated() && (
-              <Nav.Link as={Link} to='signin'>
+              <Nav.Link data-testid='nav-signin' as={Link} to='signin'>
                 Sign In
               </Nav.Link>
             )}
             {!isAuthenticated() && (
-              <Nav.Link as={Link} to='/signup'>
+              <Nav.Link data-testid='nav-signup' as={Link} to='/signup'>
                 Sign Up
               </Nav.Link>
             )}
