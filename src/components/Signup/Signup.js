@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 
 const Signup = () => {
@@ -27,61 +30,62 @@ const Signup = () => {
   useEffect(() => console.log(signupErrors?.errors), [signupErrors]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username</label>
-          <input
-            id='username'
-            type='text'
+    <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId='username'>
+          <Form.Label>Username</Form.Label>
+          <Form.Control
             name='username'
-            placeholder='Username'
+            type='username'
+            placeholder='Enter username'
             onChange={handleChange}
           />
           {signupErrors && <small>{signupErrors?.errors.username}</small>}
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            id='email'
-            type='text'
+        </Form.Group>
+        <Form.Group controlId='email'>
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             name='email'
-            placeholder='Email'
+            type='email'
+            placeholder='Enter email'
             onChange={handleChange}
           />
           {signupErrors && <small>{signupErrors?.errors.email}</small>}
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            id='password'
+          <Form.Text className='text-muted'>
+            We never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group controlId='password'>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type='password'
             name='password'
             placeholder='Password'
-            autoComplete='on'
             onChange={handleChange}
+            autoComplete='on'
           />
           {signupErrors && <small>{signupErrors?.errors.password}</small>}
-        </div>
-        <div>
-          <label htmlFor='passwordConfirmation'>Password Confirmation</label>
-          <input
-            id='passwordConfirmation'
+        </Form.Group>
+        <Form.Group controlId='passwordConfirmation'>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type='password'
             name='passwordConfirmation'
             placeholder='Password Confirmation'
-            autoComplete='on'
             onChange={handleChange}
+            autoComplete='on'
           />
           {signupErrors && (
-            <small>{signupErrors?.errors.passwordConfirmation}</small>
+            <div>
+              <small>{signupErrors?.errors.passwordConfirmation}</small>
+            </div>
           )}
-        </div>
-        <div>
-          <button type='submit'>Sign Up</button>
-        </div>
-      </form>
-    </div>
+        </Form.Group>
+        <Button variant='primary' type='submit'>
+          Sign Up
+        </Button>
+      </Form>
+    </Card>
   );
 };
 
