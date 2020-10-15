@@ -25,6 +25,11 @@ const Navbar = () => {
         </Link>
       )}
       {isAuthenticated() && (
+        <Link to='/myjournal'>
+          <button>My Journal</button>
+        </Link>
+      )}
+      {isAuthenticated() && (
         <Link to='/' onClick={logout}>
           <button>Logout</button>
         </Link>
