@@ -5,7 +5,7 @@ import { render, waitFor } from '@testing-library/react';
 import Landing from './Landing';
 
 test('renders welcome on landing page', async () => {
-  const { getByText } = render(
+  const { container, getByText } = render(
     <BrowserRouter>
       <Landing />
     </BrowserRouter>,
@@ -16,4 +16,5 @@ test('renders welcome on landing page', async () => {
   expect(
     getByText('Take your notes and keep your memories'),
   ).toBeInTheDocument();
+  expect(container).toMatchSnapshot();
 });

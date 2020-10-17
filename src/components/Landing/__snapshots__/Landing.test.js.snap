@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders welcome on landing page 1`] = `
+<div>
+  <div
+    class="jumbotron"
+  >
+    <div
+      class="text-center container"
+    >
+      <h1>
+        Welcome to Calendar Journal
+      </h1>
+      <p>
+        Take your notes and keep your memories
+      </p>
+      <div
+        class="d-flex justify-content-center"
+      >
+        <a
+          class="nav-link"
+          href="/signin"
+        >
+          <button
+            class="btn btn-primary"
+            type="button"
+          >
+            Sign In
+          </button>
+        </a>
+        <a
+          class="nav-link"
+          href="/signup"
+        >
+          <button
+            class="btn btn-primary"
+            type="button"
+          >
+            Sign Up
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
