@@ -71,34 +71,6 @@ const EntryForm = ({ date }) => {
         </Button>
       </Form>
     </Card>
-    // <form data-testid='entry-form' onSubmit={handleSubmit}>
-    //   <label htmlFor='title'>Title</label>
-    //   <input
-    //     id='title'
-    //     name='title'
-    //     placeholder='Entry title'
-    //     type='text'
-    //     onChange={handleChange}
-    //     value={formData.title}
-    //   />
-    //   <label htmlFor='entryText'>Entry text</label>
-    //   <input
-    //     id='entryText'
-    //     name='entryText'
-    //     placeholder='Entry text'
-    //     type='text'
-    //     onChange={handleChange}
-    //     value={formData.entryText}
-    //   />
-    //   <input
-    //     id='date'
-    //     name='date'
-    //     type='datetime-local'
-    //     onChange={handleChange}
-    //     value={formData.date}
-    //   />
-    //   <button type='submit'>Create Entry</button>
-    // </form>
   );
 };
 
