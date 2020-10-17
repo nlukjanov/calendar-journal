@@ -40,7 +40,9 @@ const MyJournal = () => {
   // useEffect(() => console.log(journalEntries), [journalEntries]);
 
   const dateClick = (info) => {
-    return history.push('/new-entry', { date: info.dateStr });
+    return history.push('/new-entry', {
+      date: info.dateStr,
+    });
   };
 
   return (

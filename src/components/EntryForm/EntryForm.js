@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { getToken } from '../../lib/authHelper';
 
-const EntryForm = ({ date }) => {
+const EntryForm = ({ date, title, entryText }) => {
   const history = useHistory();
   const passedDate = date ? new Date(date).toISOString().substr(0, 16) : '';
   const [formData, setFormData] = useState({
@@ -63,6 +63,7 @@ const EntryForm = ({ date }) => {
             type='datetime-local'
             name='date'
             placeholder='Date'
+            value={formData.date}
             onChange={handleChange}
           />
         </Form.Group>

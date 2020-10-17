@@ -2,11 +2,11 @@ import React from 'react';
 import EntryForm from '../EntryForm/EntryForm';
 
 const NewEntry = (props) => {
-  const date = props.location.state;
+  const { state } = props.location;
   return (
     <div>
-      <h1>New Journal Entry</h1>
-      <EntryForm {...date} />
+      <h1 className='text-center'>New Journal Entry</h1>
+      <EntryForm {...state} />
     </div>
   );
 };
