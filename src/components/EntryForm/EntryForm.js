@@ -1,41 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { getToken } from '../../lib/authHelper';
 
-const EntryForm = ({ date, title, entryText }) => {
-  const history = useHistory();
-  const passedDate = date ? new Date(date).toISOString().substr(0, 16) : '';
-  const [formData, setFormData] = useState({
-    title: '',
-    entryText: '',
-    date: passedDate,
-  });
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:4000/api/journal', formData, {
-        headers: { Authorization: `Bearer ${getToken('token')}` },
-      });
-      history.push('/myjournal');
-      // add notification with res
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = ({ target: { name, value } }) => {
-    const formNewData = { ...formData, [name]: value };
-    setFormData(formNewData);
-  };
-
-  useEffect(() => {
-    console.log(formData.date);
-  }, [formData.date]);
-
+const EntryForm = ({ formData, handleSubmit, handleChange }) => {
+  console.log('formData', formData);
   return (
     <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
       <Form onSubmit={handleSubmit}>
@@ -45,6 +15,7 @@ const EntryForm = ({ date, title, entryText }) => {
             name='title'
             type='title'
             placeholder='Enter title'
+            value={formData.title}
             onChange={handleChange}
           />
         </Form.Group>
@@ -54,6 +25,7 @@ const EntryForm = ({ date, title, entryText }) => {
             type='textarea'
             name='entryText'
             placeholder='Entry Text'
+            value={formData.entryText}
             onChange={handleChange}
           />
         </Form.Group>
@@ -68,7 +40,7 @@ const EntryForm = ({ date, title, entryText }) => {
           />
         </Form.Group>
         <Button variant='primary' type='submit'>
-          Create Entry
+          Submit
         </Button>
       </Form>
     </Card>
