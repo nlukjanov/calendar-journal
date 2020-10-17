@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders all buttons on navbar 1`] = `
+<div>
+  <main
+    data-testid="main"
+    style=""
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+    >
+      <a
+        href="/"
+      >
+        <span
+          class="navbar-brand"
+        >
+          Home
+        </span>
+      </a>
+      <button
+        aria-controls="responsive-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="justify-content-end navbar-collapse collapse"
+        id="responsive-navbar-nav"
+      >
+        <div
+          class="navbar-nav"
+        >
+          <a
+            class="nav-link"
+            data-testid="nav-signin"
+            href="/signin"
+          >
+            Sign In
+          </a>
+          <a
+            class="nav-link"
+            data-testid="nav-signup"
+            href="/signup"
+          >
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="jumbotron"
+    >
+      <div
+        class="text-center container"
+      >
+        <h1>
+          Welcome to Calendar Journal
+        </h1>
+        <p>
+          Take your notes and keep your memories
+        </p>
+        <div
+          class="d-flex justify-content-center"
+        >
+          <a
+            class="nav-link"
+            href="/signin"
+          >
+            <button
+              class="btn btn-primary"
+              type="button"
+            >
+              Sign In
+            </button>
+          </a>
+          <a
+            class="nav-link"
+            href="/signup"
+          >
+            <button
+              class="btn btn-primary"
+              type="button"
+            >
+              Sign Up
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+`;
