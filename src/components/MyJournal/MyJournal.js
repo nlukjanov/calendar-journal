@@ -37,7 +37,7 @@ const MyJournal = () => {
     getEntries();
   }, []);
 
-  useEffect(() => console.log(journalEntries), [journalEntries]);
+  // useEffect(() => console.log(journalEntries), [journalEntries]);
 
   const dateClick = (info) => {
     return history.push('/new-entry', { date: info.dateStr });
@@ -45,7 +45,7 @@ const MyJournal = () => {
 
   return (
     <>
-      <div>My journal</div>
+      <div className='text-center h1'>My journal</div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         initialView='dayGridMonth'
