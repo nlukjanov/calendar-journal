@@ -4,18 +4,14 @@
     "commonjs": true,
     "es6": true,
     "node": true,
-    "jest": true,
-    "cypress/globals": true
+    "jest": true
   },
-  "plugins": ["jest", "node", "babel", "react", "react-hooks", "cypress"],
+  "plugins": ["node", "babel"],
   "extends": [
     "airbnb-base",
     "plugin:prettier/recommended",
     "eslint:recommended",
-    "plugin:jest/recommended",
-    "plugin:node/recommended",
-    "plugin:react/recommended",
-    "plugin:cypress/recommended"
+    "plugin:node/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -42,8 +38,6 @@
     // "quotes": ["error", "single"],
     // "semi": ["error", "always"],
     // "react/prop-types": [0],
-    "node/no-unsupported-features/es-syntax": ["off"],
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+    "node/no-unsupported-features/es-syntax": ["off"]
   }
 }

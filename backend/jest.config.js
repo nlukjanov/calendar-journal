@@ -11,12 +11,12 @@ module.exports = {
     '!<rootDir>/*config.js',
     '!<rootDir>/backend/server.js',
     '!**/cypress/**',
-    '!**/db/**'
+    '!**/db/**',
   ],
   preset: '@shelf/jest-mongodb',
   watchPlugins: [
     'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
+    'jest-watch-typeahead/testname',
   ],
-  modulePathIgnorePatterns: ['<rootDir>/src/', '<rootDir>/build/']
+  modulePathIgnorePatterns: ['<rootDir>/src/', '<rootDir>/build/'],
 };
