@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders entry form correctly 1`] = `
+<div>
+  <div
+    class="mx-auto mt-5 border-light card"
+    style="max-width: 25rem;"
+  >
+    <form
+      class=""
+    >
+      <div
+        class="form-group"
+      >
+        <label
+          class="form-label"
+          for="title"
+        >
+          Title
+        </label>
+        <input
+          class="form-control"
+          id="title"
+          name="title"
+          placeholder="Enter title"
+          type="title"
+          value=""
+        />
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="form-label"
+          for="entryText"
+        >
+          Entry Text
+        </label>
+        <input
+          class="form-control"
+          id="entryText"
+          name="entryText"
+          placeholder="Entry Text"
+          type="textarea"
+          value=""
+        />
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="form-label"
+          for="date"
+        >
+          Date
+        </label>
+        <input
+          class="form-control"
+          id="date"
+          name="date"
+          placeholder="Date"
+          type="datetime-local"
+          value=""
+        />
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
