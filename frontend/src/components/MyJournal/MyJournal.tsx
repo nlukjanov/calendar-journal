@@ -18,7 +18,9 @@ const MyJournal = () => {
   };
   const [journalEntries, setJournalEntries] = useState();
   const getEntries = async () => {
-    const headers = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const headers = {
+      headers: { Authorization: `Bearer ${getToken('token')}` },
+    };
     try {
       const res = await axios.get('http://localhost:4000/api/journal', headers);
       const events = res.data.map((entry) => {

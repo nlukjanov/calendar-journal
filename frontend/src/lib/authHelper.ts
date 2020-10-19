@@ -11,7 +11,7 @@ export const logout = () => {
 };
 
 export const getPayload = () => {
-  const token = getToken();
+  const token = getToken('token');
   if (!token) return false;
   const parts = token.split('.');
   if (parts.length < 3) return false;
