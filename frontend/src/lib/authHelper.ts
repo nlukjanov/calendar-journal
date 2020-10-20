@@ -1,8 +1,8 @@
-export const setToken = (token) => {
+export const setToken = (token: string) => {
   localStorage.setItem('token', token);
 };
 
-export const getToken = (token) => {
+export const getToken = (token: string) => {
   return localStorage.getItem(token);
 };
 
@@ -25,7 +25,7 @@ export const isAuthenticated = () => {
   return now < payload.exp;
 };
 
-export const isOwner = (id) => {
+export const isOwner = (id: string) => {
   const subject = getPayload().sub;
   return id === subject;
 };
