@@ -26,7 +26,9 @@ function App() {
             <SecureRouteFront path='/myjournal' component={MyJournal} />
             <SecureRouteFront
               path='/new-entry'
-              component={(props) => <NewEntry {...props} />}
+              component={(props: any) => {
+                return <NewEntry {...props} />;
+              }}
             />
             <Route path='/*' component={ErrorPage} />
           </Switch>
