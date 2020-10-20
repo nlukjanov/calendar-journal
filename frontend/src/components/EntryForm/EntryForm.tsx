@@ -4,7 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-const EntryForm = ({ formData, handleSubmit, handleChange }) => {
+type EntryForm = {
+  formData: any;
+  handleSubmit: any;
+  handleChange: any;
+};
+
+const EntryForm = ({ formData, handleSubmit, handleChange }: EntryForm) => {
   console.log('formData', formData);
   return (
     <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
