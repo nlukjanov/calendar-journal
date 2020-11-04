@@ -1,0 +1,43 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "plugins": ["node", "babel"],
+  "extends": [
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:node/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    // "brace-style": "error",
+    "camelcase": ["error", { "properties": "always" }],
+    // "func-call-spacing": ["error", "never"],
+    // "keyword-spacing": ["error", { "before": true }],
+    // "space-infix-ops": ["error", { "int32Hint": false }],
+    // "object-curly-spacing": ["error", "always"],
+    // "eqeqeq": "warn",
+    // "indent": ["error", 2, { "SwitchCase": 1 }],
+    // "key-spacing": ["error", { "beforeColon": false }],
+    // "no-console": "warn",
+    // "no-fallthrough": "warn",
+    // "no-var": "warn",
+    // "prefer-const": "error",
+    // "quotes": ["error", "single"],
+    // "semi": ["error", "always"],
+    // "react/prop-types": [0],
+    "node/no-unsupported-features/es-syntax": ["off"]
+  }
+}

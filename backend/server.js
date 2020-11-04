@@ -1,11 +1,11 @@
+const mongoose = require('mongoose');
 const app = require('./app');
 const { port, dbURI } = require('./config/environment');
-const mongoose = require('mongoose');
 
 const mongooseConfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
 };
 
 if (process.env.NODE_ENV !== 'test') {
@@ -14,6 +14,6 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`Mongo is connected to '${dbURI}'`);
   });
   app.listen(port, () =>
-    console.log(`Express app listening at http://localhost:${port}`)
+    console.log(`Express app listening at http://localhost:${port}`),
   );
 }
