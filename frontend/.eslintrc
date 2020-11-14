@@ -6,18 +6,19 @@
     "jest": true,
     "cypress/globals": true
   },
-  "plugins": ["react", "react-hooks", "cypress", "only-warn"],
+  "plugins": ["only-warn", "react", "react-hooks", "cypress"],
   "extends": [
     "react-app",
     "react-app/jest",
-    "airbnb-base",
+    "airbnb-typescript",
     "plugin:prettier/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:cypress/recommended"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "sourceType": "module",
     "ecmaVersion": 2020,
     "ecmaFeatures": {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import EntryForm from '../EntryForm/EntryForm';
 import { getToken } from '../../lib/authHelper';
 
-const NewEntry = (props) => {
+const NewEntry = (props: any) => {
   const history = useHistory();
   const { state } = props.location;
   const passedData = {
@@ -14,7 +14,7 @@ const NewEntry = (props) => {
   };
   const [formData, setFormData] = useState(passedData);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:4000/api/journal', formData, {
@@ -27,7 +27,15 @@ const NewEntry = (props) => {
     }
   };
 
-  const handleChange = ({ target: { name, value } }) => {
+  type Change = {
+    target: Field;
+  };
+
+  type Field = {
+    name: string;
+    value: string;
+  };
+  const handleChange = ({ target: { name, value } }: Change) => {
     const formNewData = { ...formData, [name]: value };
     setFormData(formNewData);
   };

@@ -7,15 +7,45 @@ import axios from 'axios';
 
 const Signup = () => {
   const history = useHistory();
-  const [formData, setFormData] = useState();
-  const [signupErrors, setSignupErrors] = useState();
+  const [formData, setFormData] = useState({});
+  const [signupErrors, setSignupErrors] = useState<Error | null>(null);
 
-  const handleChange = ({ target: { name, value } }) => {
+  type Change = {
+    target: Field;
+  };
+
+  type Field = {
+    name: string;
+    value: string;
+  };
+
+  type Error = {
+    errors: Errors;
+  };
+
+  type Errors = {
+    response: Response;
+    prevState: null;
+    username: string;
+    email: string;
+    password: string;
+    passwordConfirmation: string;
+  };
+
+  type Response = {
+    data: Data;
+  };
+
+  type Data = {
+    message: string;
+  };
+
+  const handleChange = ({ target: { name, value } }: Change) => {
     const formNewData = { ...formData, [name]: value };
     setFormData(formNewData);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:4000/api/register', formData);

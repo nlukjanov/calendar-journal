@@ -1,9 +1,9 @@
-export const setToken = (token) => {
+export const setToken = (token: string) => {
   localStorage.setItem('token', token);
 };
 
-export const getToken = () => {
-  return localStorage.getItem('token');
+export const getToken = (token: string) => {
+  return localStorage.getItem(token);
 };
 
 export const logout = () => {
@@ -11,7 +11,7 @@ export const logout = () => {
 };
 
 export const getPayload = () => {
-  const token = getToken();
+  const token = getToken('token');
   if (!token) return false;
   const parts = token.split('.');
   if (parts.length < 3) return false;
@@ -25,7 +25,7 @@ export const isAuthenticated = () => {
   return now < payload.exp;
 };
 
-export const isOwner = (id) => {
+export const isOwner = (id: string) => {
   const subject = getPayload().sub;
   return id === subject;
 };

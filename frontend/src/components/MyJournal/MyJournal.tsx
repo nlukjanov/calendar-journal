@@ -18,10 +18,12 @@ const MyJournal = () => {
   };
   const [journalEntries, setJournalEntries] = useState();
   const getEntries = async () => {
-    const headers = { headers: { Authorization: `Bearer ${getToken()}` } };
+    const headers = {
+      headers: { Authorization: `Bearer ${getToken('token')}` },
+    };
     try {
       const res = await axios.get('http://localhost:4000/api/journal', headers);
-      const events = res.data.map((entry) => {
+      const events = res.data.map((entry: any) => {
         return {
           title: entry.title,
           date: entry.date,
@@ -39,7 +41,7 @@ const MyJournal = () => {
 
   // useEffect(() => console.log(journalEntries), [journalEntries]);
 
-  const dateClick = (info) => {
+  const dateClick = (info: any) => {
     return history.push('/new-entry', {
       date: info.dateStr,
     });

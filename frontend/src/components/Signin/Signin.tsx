@@ -8,15 +8,41 @@ import { setToken } from '../../lib/authHelper';
 
 const Signin = () => {
   const history = useHistory();
-  const [formData, setFormData] = useState();
-  const [signinErrors, setSigninErrors] = useState();
+  const [formData, setFormData] = useState({});
+  const [signinErrors, setSigninErrors] = useState<Error | null>(null);
 
-  const handleChange = ({ target: { name, value } }) => {
+  type Change = {
+    target: Field;
+  };
+
+  type Field = {
+    name: string;
+    value: string;
+  };
+
+  type Error = {
+    errors: Errors;
+  };
+
+  type Errors = {
+    response: Response;
+    prevState: null;
+  };
+
+  type Response = {
+    data: Data;
+  };
+
+  type Data = {
+    message: string;
+  };
+
+  const handleChange = ({ target: { name, value } }: Change) => {
     const formNewData = { ...formData, [name]: value };
     setFormData(formNewData);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:4000/api/login', formData);
@@ -28,9 +54,9 @@ const Signin = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('error log', signinErrors?.errors);
-  }, [signinErrors]);
+  // useEffect(() => {
+  //   console.log('error log', signinErrors?.errors);
+  // }, [signinErrors]);
 
   return (
     <Card className='mx-auto mt-5 border-light' style={{ maxWidth: '25rem' }}>
@@ -60,7 +86,7 @@ const Signin = () => {
         </Form.Group>
         {signinErrors && (
           <div>
-            <small>{signinErrors.errors}</small>
+            <small>{signinErrors?.errors}</small>
           </div>
         )}
         <Button variant='primary' type='submit'>
